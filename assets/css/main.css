@@ -1,6 +1,12 @@
+.hina-mincho-regular {
+  font-family: "Hina Mincho", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
   color: #222;
-  font-family: sans-serif;
+  font-family: "Hina Mincho", serif;
   line-height: 1.5;
   margin: 1rem;
   max-width: 768px;
