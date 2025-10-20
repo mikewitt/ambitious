@@ -1,28 +1,49 @@
+@charset "UTF-8";
+
+@import "tailwindcss";
+@source "hugo_stats.json";
+
 .hina-mincho-regular {
   font-family: "Hina Mincho", serif;
   font-weight: 400;
   font-style: normal;
 }
 
-body {
-  color: #222;
-  font-family: "Hina Mincho", serif;
-  line-height: 1.5;
-  margin: 1rem;
-  max-width: 768px;
-}
+@layer base {
+  h1 {
+    @apply text-4xl font-bold text-gray-800;
+  }
 
-header {
-  border-bottom: 1px solid #222;
-  margin-bottom: 1rem;
-}
+  html {
+      font-size: 18px;
+  }
 
-footer {
-  border-top: 1px solid #222;
-  margin-top: 1rem;
-}
+  body {
+    color: #222;
+    font-family: "Hina Mincho", Palatino, Georgia, serif;
+    line-height: 1.5;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 12.5%;
+    width: 87.5%;
+    max-width: 1400px;
+    background-color: #fff8fa;
+    color: #111111;
+    counter-reset: sidenote-counter;
+  }
 
-a {
-  color: #00e;
-  text-decoration: none;
+  header {
+    border-bottom: 1px solid #222222;
+    margin-bottom: 1rem;
+  }
+
+  footer {
+    border-top: 1px solid #222222;
+    margin-top: 1rem;
+  }
+
+  a {
+    color: #00e;
+    text-decoration: none;
+  }
 }
