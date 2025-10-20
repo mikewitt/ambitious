@@ -5,10 +5,19 @@
   {{ with (templates.Defer (dict "key" "global")) }}
     {{ partial "css.html" . }}
   {{ end }}
+  <script>
+    (function() {
+      const theme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (theme === 'dark' || (!theme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
 </head>
-<body>
-  <header>
-    {{ partial "header.html" . }}
+<body class="leading-normal">
+  <header class="navmenu">
+    {{ partial "nheader.html" . }}
   </header>
   <main>
     {{ block "main" . }}{{ end }}
@@ -16,5 +25,7 @@
   <footer>
     {{ partial "footer.html" . }}
   </footer>
+  {{ $headerJS := resources.Get "js/header.js" }}
+  <script src="{{ $headerJS.Permalink }}"></script>
 </body>
 </html>

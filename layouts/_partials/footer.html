@@ -1,1 +1,6 @@
-<p>Copyright {{ now.Year }}. All rights reserved.</p>
+{{/*  <p>Copyright {{ now.Year }}. All rights reserved.</p>  */}}
+{{/* Copyright */}}
+{{ $copyright := .Site.Params.copyright | default "&copy; { year }" }}
+<p class="text-xs text-neutral-500 dark:text-neutral-400">
+    {{- replace $copyright "{ year }" now.Year | markdownify -}}
+</p>

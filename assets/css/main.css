@@ -3,47 +3,100 @@
 @import "tailwindcss";
 @source "hugo_stats.json";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 .hina-mincho-regular {
   font-family: "Hina Mincho", serif;
   font-weight: 400;
   font-style: normal;
 }
 
+@theme {
+  --font-serif: "Hina Mincho", Palatino, Georgia, serif;
+  --font-weight-normal: 400;
+
+  --color-main: #745474;
+  --color-primary: #b50388;
+  --color-secondary: #971c00;
+
+  --color-neutral-50: color-mix(in srgb, var(--color-main) 25%, white);
+  --color-neutral-100: color-mix(in srgb, var(--color-main) 40%, white);
+  --color-neutral-200: color-mix(in srgb, var(--color-main) 55%, white);
+  --color-neutral-300: color-mix(in srgb, var(--color-main) 70%, white);
+  --color-neutral-400: color-mix(in srgb, var(--color-main) 85%, white);
+  --color-neutral-500: var(--color-main);
+  --color-neutral-600: color-mix(in srgb, var(--color-main) 92%, black);
+  --color-neutral-700: color-mix(in srgb, var(--color-main) 84%, black);
+  --color-neutral-800: color-mix(in srgb, var(--color-main) 76%, black);
+  --color-neutral-900: color-mix(in srgb, var(--color-main) 68%, black);
+
+  --color-primary-50: color-mix(in srgb, var(--color-primary) 25%, white);
+  --color-primary-100: color-mix(in srgb, var(--color-primary) 40%, white);
+  --color-primary-200: color-mix(in srgb, var(--color-primary) 55%, white);
+  --color-primary-300: color-mix(in srgb, var(--color-primary) 70%, white);
+  --color-primary-400: color-mix(in srgb, var(--color-primary) 85%, white);
+  --color-primary-500: var(--color-primary);
+  --color-primary-600: color-mix(in srgb, var(--color-primary) 92%, black);
+  --color-primary-700: color-mix(in srgb, var(--color-primary) 84%, black);
+  --color-primary-800: color-mix(in srgb, var(--color-primary) 76%, black);
+  --color-primary-900: color-mix(in srgb, var(--color-primary) 68%, black);
+
+  --color-secondary-50: color-mix(in srgb, var(--color-secondary) 25%, white);
+  --color-secondary-100: color-mix(in srgb, var(--color-secondary) 40%, white);
+  --color-secondary-200: color-mix(in srgb, var(--color-secondary) 55%, white);
+  --color-secondary-300: color-mix(in srgb, var(--color-secondary) 70%, white);
+  --color-secondary-400: color-mix(in srgb, var(--color-secondary) 85%, white);
+  --color-secondary-500: var(--color-secondary);
+  --color-secondary-600: color-mix(in srgb, var(--color-secondary) 92%, black);
+  --color-secondary-700: color-mix(in srgb, var(--color-secondary) 84%, black);
+  --color-secondary-800: color-mix(in srgb, var(--color-secondary) 76%, black);
+  --color-secondary-900: color-mix(in srgb, var(--color-secondary) 68%, black);
+
+  --background-dark: var(--color-neutral-900);
+  --background-light: #ddc6cc;
+}
+
 @layer base {
-  h1 {
+
+  header h1 {
     @apply text-4xl font-bold text-gray-800;
   }
 
-  html {
-      font-size: 18px;
+  h1 {
+    @apply text-3xl font-bold text-gray-800;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold text-gray-800;
+  }
+
+  h3, h4, h5, h6 {
+    @apply text-xl font-semibold text-gray-800;
   }
 
   body {
-    color: #222;
-    font-family: "Hina Mincho", Palatino, Georgia, serif;
+    @apply bg-[var(--background-light)] dark:bg-[var(--background-dark)] text-neutral-800 dark:text-neutral-200;
+    font-family: var(--font-serif);
     line-height: 1.5;
     margin-left: auto;
     margin-right: auto;
     padding-left: 12.5%;
     width: 87.5%;
     max-width: 1400px;
-    background-color: #fff8fa;
-    color: #111111;
     counter-reset: sidenote-counter;
   }
 
-  header {
-    border-bottom: 1px solid #222222;
-    margin-bottom: 1rem;
-  }
-
-  footer {
-    border-top: 1px solid #222222;
-    margin-top: 1rem;
-  }
-
   a {
-    color: #00e;
-    text-decoration: none;
+    @apply no-underline hover:underline;
+  }
+}
+
+@layer components {
+  .site-header {
+    @apply top-0 w-full;
+  }
+
+  .navmenu {
+    @apply top-0 z-10 w-full;
   }
 }
