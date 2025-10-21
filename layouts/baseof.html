@@ -17,14 +17,14 @@
 </head>
 <body class="leading-normal">
   <header class="navmenu">
-    {{ partial "nheader.html" . }}
+    {{ partial "header.html" . }}
   </header>
   <main>
     {{ block "main" . }}{{ end }}
   </main>
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
+
+  {{- partial "footer.html" . -}}
+
   {{ $headerJS := resources.Get "js/header.js" }}
   <script src="{{ $headerJS.Permalink }}"></script>
 </body>

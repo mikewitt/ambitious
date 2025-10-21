@@ -26,9 +26,9 @@
   --color-neutral-400: color-mix(in srgb, var(--color-main) 85%, white);
   --color-neutral-500: var(--color-main);
   --color-neutral-600: color-mix(in srgb, var(--color-main) 92%, black);
-  --color-neutral-700: color-mix(in srgb, var(--color-main) 84%, black);
-  --color-neutral-800: color-mix(in srgb, var(--color-main) 76%, black);
-  --color-neutral-900: color-mix(in srgb, var(--color-main) 68%, black);
+  --color-neutral-700: color-mix(in srgb, var(--color-main) 80%, black);
+  --color-neutral-800: color-mix(in srgb, var(--color-main) 70%, black);
+  --color-neutral-900: color-mix(in srgb, var(--color-main) 50%, black);
 
   --color-primary-50: color-mix(in srgb, var(--color-primary) 25%, white);
   --color-primary-100: color-mix(in srgb, var(--color-primary) 40%, white);
@@ -52,26 +52,26 @@
   --color-secondary-800: color-mix(in srgb, var(--color-secondary) 76%, black);
   --color-secondary-900: color-mix(in srgb, var(--color-secondary) 68%, black);
 
-  --background-dark: var(--color-neutral-900);
+  --background-dark: var(--color-neutral-800);
   --background-light: #ddc6cc;
 }
 
 @layer base {
 
   header h1 {
-    @apply text-4xl font-bold text-gray-800;
+    @apply text-4xl font-bold text-neutral-900 dark:text-neutral-50;
   }
 
   h1 {
-    @apply text-3xl font-bold text-gray-800;
+    @apply text-3xl font-bold text-neutral-900 dark:text-neutral-50;
   }
 
   h2 {
-    @apply text-2xl font-semibold text-gray-800;
+    @apply text-2xl font-semibold text-neutral-900 dark:text-neutral-50;
   }
 
   h3, h4, h5, h6 {
-    @apply text-xl font-semibold text-gray-800;
+    @apply text-xl font-semibold text-neutral-900 dark:text-neutral-50;
   }
 
   body {
@@ -98,5 +98,23 @@
 
   .navmenu {
     @apply top-0 z-10 w-full;
+  }
+
+  .main-content {
+    @apply pb-24;
+  }
+
+  .fixed-footer {
+    @apply fixed bottom-0 w-full left-0 z-10;
+    @apply flex items-center gap-x-4;
+    @apply p-4 md:p-6;
+  }
+
+  .fixed-footer p {
+    @apply text-sm text-neutral-600 dark:text-neutral-400;
+  }
+
+  .site-title {
+    @apply text-xl font-semibold;
   }
 }
