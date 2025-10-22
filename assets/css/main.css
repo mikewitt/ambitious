@@ -75,35 +75,61 @@
   }
 
   body {
-    @apply bg-[var(--background-light)] dark:bg-[var(--background-dark)] text-neutral-800 dark:text-neutral-200;
+    @apply flex flex-col h-screen m-auto; /* center content */
+    @apply bg-[var(--background-light)] dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200; /* colors */
+    @apply sm:px-14 md:px-24 lg:px-32; /* padding */
     font-family: var(--font-serif);
     line-height: 1.5;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 12.5%;
-    width: 87.5%;
+    /* padding-left: 12.5%;
+    width: 87.5%; */
     max-width: 1400px;
     counter-reset: sidenote-counter;
   }
 
   a {
-    @apply no-underline hover:underline;
+    @apply no-underline hover:text-primary;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 70rem) 1fr;
+  }
+
+  main > * {
+    grid-column: 2;
+  }
+
+  .bleed-right {
+    grid-column: 2 / -1;
   }
 }
 
 @layer components {
+  /* Header components */
   .site-header {
     @apply top-0 w-full;
   }
-
   .navmenu {
     @apply top-0 z-10 w-full;
+  }
+  .nav-link {
+    @apply text-lg;
+  }
+
+  .site-title {
+    @apply text-xl font-semibold;
   }
 
   .main-content {
     @apply pb-24;
   }
 
+  /* homepage hero components */
+  .hero-background-image {
+    @apply h-full w-full object-cover mt-0 mr-0 mb-0 ml-0;
+  }
+
+  /* Footer components */
   .fixed-footer {
     @apply fixed bottom-0 w-full left-0 z-10;
     @apply flex items-center gap-x-4;
@@ -114,7 +140,40 @@
     @apply text-sm text-neutral-600 dark:text-neutral-400;
   }
 
-  .site-title {
-    @apply text-xl font-semibold;
+  /* == Hallucination Effect == */
+  .hallucination-effect {
+    /* These are the fallback styles if mix-blend-mode isn't supported */
+    @apply bg-cover bg-center;
+    --hallucination-offset: 1.0075;
   }
+
+  [class$="-effect"] img {
+    @apply align-top m-0 !opacity-0;
+  }
+  @supports (mix-blend-mode: multiply) {
+    .hallucination-effect {
+      @apply relative overflow-hidden;
+      @apply bg-[magenta];
+      background-blend-mode: screen;
+    }
+
+    .hallucination-effect::before,
+    .hallucination-effect::after {
+      @apply block absolute inset-0 scale-(--hallucination-offset);
+      content: "";
+      background: inherit; 
+      mix-blend-mode: multiply;
+    }
+
+    .hallucination-effect::before {
+      @apply bg-[yellow] origin-top-left;
+      background-blend-mode: screen;
+    }
+
+    .hallucination-effect::after {
+      @apply bg-[cyan] origin-bottom-right;
+      background-blend-mode: screen;
+    }
+  }
+
 }

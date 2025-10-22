@@ -19,11 +19,15 @@
   <header class="navmenu">
     {{ partial "header.html" . }}
   </header>
+
   <main>
     {{ block "main" . }}{{ end }}
   </main>
 
   {{- partial "footer.html" . -}}
+
+  {{/*  {{ $background := resources.Get "muir_woods_pano.jpg" }}
+  {{ printf "%s" $background.Permalink }}  */}}
 
   {{ $headerJS := resources.Get "js/header.js" }}
   <script src="{{ $headerJS.Permalink }}"></script>
