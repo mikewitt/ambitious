@@ -24,5 +24,36 @@
         dark:to-(--background-dark-glass)">
     </div>
     </div>
+    <div id="background-blur" class="fixed -z-10 opacity-0 inset-x-0 top-0 h-full backdrop-blur-md"></div>
+    <script>
+    // We wrap this in DOMContentLoaded to make sure the
+    // #background-blur element exists before we try to find it.
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const blurElement = document.getElementById('background-blur');
+        if (!blurElement) {
+        return;
+        }
+        
+        const scrollStop = {{ $backgroundHeight }}; // The scroll position (px) to reach max opacity
+        let ticking = false;
+
+        function updateOpacity() {
+        const scrollY = window.scrollY;
+        const opacity = Math.min(scrollY / scrollStop, 1);
+        blurElement.style.opacity = opacity;
+        ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateOpacity);
+            ticking = true;
+        }
+        });
+
+        updateOpacity(); // Run once on load
+    });
+    </script>
     {{- end -}}
 {{ end }}
