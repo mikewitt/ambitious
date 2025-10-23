@@ -1,0 +1,28 @@
+{{- $image := "" -}}
+{{- $backgroundHeight := .Site.Params.style.backgroundHeight | default 800 -}}
+{{- range .ImageList -}}
+    {{- if not $image -}}
+        {{- with resources.Get . -}}
+            {{- $image = . -}}
+        {{- else with resources.GetRemote . -}}
+            {{- $image = . -}}
+        {{- end -}}
+    {{- end -}}
+{{- end -}}
+{{- with .Page }}
+    {{- if $image -}}
+    <div class="fixed inset-x-0 top-0 -z-10">
+    <div 
+        class="absolute inset-0 chromatic-abberation min-h-[{{ $backgroundHeight }}px]"
+        style="background-image:url('{{ $image.RelPermalink }}');"></div>
+    <div
+        class="absolute inset-0 min-h-[{{ $backgroundHeight }}px] 
+        bg-gradient-to-t 
+        from-(--background-light) 
+        to-(--background-glass) mix-blend-normal 
+        dark:from-(--background-dark)
+        dark:to-(--background-dark-glass)">
+    </div>
+    </div>
+    {{- end -}}
+{{ end }}

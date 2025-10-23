@@ -20,14 +20,11 @@
     {{ partial "header.html" . }}
   </header>
 
-  <main>
+  <main class="gap-y-8">
     {{ block "main" . }}{{ end }}
   </main>
 
   {{- partial "footer.html" . -}}
-
-  {{/*  {{ $background := resources.Get "muir_woods_pano.jpg" }}
-  {{ printf "%s" $background.Permalink }}  */}}
 
   {{ $headerJS := resources.Get "js/header.js" }}
   <script src="{{ $headerJS.Permalink }}"></script>

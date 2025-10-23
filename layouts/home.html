@@ -1,34 +1,48 @@
+{{/*  
+Main template for generating the homepage
+-----------------------------------------
+
+Uses the following variables:
+params.style.backgroundHeight (default to 800)
+  - Defines the minimum height for the background. Will stretch the background to fill the width of the viewport.
+    The background can be an asset in assets/ or it can be a URL. I haven't tested URL functionality but I think it should work?
+    This style works well with a wide background, not as well with narrow backgrounds.
+    - TODO: I could use 'warnf' to warn if the image selected is not ideal
+params.homepage.homepageImage: 
+  - Defaults to params.defaultBackgroundImage if not defined
+*/}}
 {{ define "main" }}
   {{- $backgroundHeight := .Site.Params.style.backgroundHeight | default 800 -}}
   <article class="max-w-full">
     <div class="relative">
-      <div class="fixed inset-x-0 top-0 -z-10">
-        {{ $image := "" -}}
-        {{ with .Site.Params.homepage.homepageImage }}
-          {{ $image = resources.Get . }}
-          {{ if not $image }}{{ $image = resources.GetRemote . }}{{ end }}
-        {{ end }}
-        {{ if not $image }}
-          {{ with .Site.Params.defaultBackgroundImage }}
-            {{ $image = resources.Get . }}
-            {{ if not $image }}{{ $image = resources.GetRemote . }}{{ end }}
-          {{ end }}
-        {{ end }}
-        {{- if $image -}}
-          <img
-            class="mt-0 min-h-[{{ $backgroundHeight }}px] w-full object-cover"
-            src="{{ $image.RelPermalink }}"
-            role="presentation">
-          <div
-            class="absolute inset-0 min-h-[{{ $backgroundHeight }}px] bg-gradient-to-t from-neutral-50 to-transparent mix-blend-normal dark:from-neutral-900">
-          </div>
-          <div
-            class="absolute inset-0 min-h-[{{ $backgroundHeight }}px] bg-gradient-to-t from-neutral-100 to-neutral-50 opacity-60 mix-blend-normal dark:from-neutral-900 dark:to-neutral-900">
-          </div>
+      {{ $image := "" -}}
+      {{- with .Site.Params.homepage.homepageImage -}}
+        {{- $image = resources.Get . -}}
+        {{- if not $image }}{{ $image = resources.GetRemote . }}{{ end -}}
+      {{- end -}}
+      {{- if not $image -}}
+        {{- with .Site.Params.defaultBackgroundImage -}}
+          {{- $image = resources.Get . -}}
+          {{- if not $image }}{{ $image = resources.GetRemote . }}{{ end -}}
         {{- end -}}
+      {{- end -}}
+      {{- if $image -}}
+      <div class="fixed inset-x-0 top-0 -z-10">
+        <div 
+          class="absolute inset-0 chromatic-abberation min-h-[{{ $backgroundHeight }}px]"
+          style="background-image:url('{{ $image.RelPermalink }}');"></div>
+        <div
+          class="absolute inset-0 min-h-[{{ $backgroundHeight }}px] 
+          bg-gradient-to-t 
+          from-(--background-light) 
+          to-(--background-glass) mix-blend-normal 
+          dark:from-(--background-dark)
+          dark:to-(--background-dark-glass)">
+        </div>
       </div>
+      {{- end -}}
 
-      <div class="relative flex flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+      <div class="relative flex flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24 lg:py-32 lg:px-8 gap-y-8">
         <div class="glass-card flex flex-col items-center">
         {{- $authorImage := "" -}}
         {{ with .Site.Params.author.image }}
@@ -52,27 +66,38 @@
         </h2>
         </div>
         
-        <section class="prose dark:prose-invert w-full pt-8">
-          {{ .Content }}
-        </section>
-
+        {{- with .Content -}}
+          <section class="glass-card prose dark:prose-invert w-full pt-8">
+            {{ . }}
+          </section>
+        {{- end -}}
       </div>
     </div>
   </article>
   <div id="background-blur" class="fixed -z-10 opacity-0 inset-x-0 top-0 h-full backdrop-blur-md"></div>
-  <section class="mx-auto max-w-3xl px-6 lg:px-8 prose dark:prose-invert">
+  <section class="flex flex-col mx-auto max-w-3xl px-6 lg:px-8 gap-8">
     <h2 class="text-3xl font-bold">Recent Posts</h2>
-    
-    {{ range first 5 .Site.RegularPages }}
-      <article>
-        <h3 class="mb-0"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+    {{ range first 5 .Site.RegularPages -}}
+      <article class="
+        relative 
+        bg-(--background-glass) dark:bg-(--background-dark-glass)
+        rounded-md shadow-md 
+        overflow-hidden transition-all
+        ring-2 ring-blue-50
+        
+        hover:bg-primary-50
+        hover:shadow-indigo-500/50
+
+        dark:hover:bg-primary-900
+        dark:hover:shadow-indigo-100/50
+      ">
+        <div class="prose dark:prose-invert p-6"><h3 class="mb-0"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
         <p class="text-sm text-gray-600 dark:text-gray-400">
           {{ .Date.Format "January 2, 2006" }}
         </p>
-        <p>{{ .Summary }}</p>
+        <p>{{ .Summary }}</p></div>
       </article>
-    {{ end }}
-
+    {{- end }}
   </section>
 
   <script>
