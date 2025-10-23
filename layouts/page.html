@@ -9,6 +9,8 @@
 
   {{- partial "author_blurb.html" . -}}
 
+  <article>
   {{- .Content -}}
+  </article>
   {{- partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
 {{- end -}}
