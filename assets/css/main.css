@@ -169,6 +169,26 @@
     @apply text-sm text-neutral-600 dark:text-neutral-400;
   }
 
+  /* Sidenotes */
+  .sidenote {
+    @apply relative text-sm;
+    @apply float-right w-max text-right mt-1 mr-0 pl-1 lg:clear-right lg:-mr-7 lg:text-left lg:-top-2 lg:w-20;
+  }
+
+  .sidenote-number {
+    counter-increment: sidenote-counter;
+  }
+
+  .sidenote::before {
+    content: counter(sidenote-counter)".";
+    @apply relative align-baseline text-sm font-bold;
+  }
+
+  .sidenote-number::after {
+    content: counter(sidenote-counter);
+    @apply align-super text-xs font-bold mr-0.5;
+  }
+
   /* == Background Effect == */
   .chromatic-abberation {
     /* These are the fallback styles if mix-blend-mode isn't supported */
