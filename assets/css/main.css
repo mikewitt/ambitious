@@ -60,6 +60,24 @@
 }
 
 @layer base {
+  html {
+    @apply overflow-y-scroll;
+  }
+
+  /* Sets the width of the entire scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-1; /* w-2 is 0.5rem (8px). You can use w-1 or w-3 */
+  }
+
+  /* The "track" (the background of the bar) */
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent; /* Makes the track invisible */
+  }
+
+  /* The "thumb" (the part you drag) */
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-400 rounded-full dark:bg-neutral-600;
+  }
 
   header h1 {
     @apply text-4xl font-bold text-neutral-900 dark:text-neutral-50;
@@ -151,37 +169,37 @@
     @apply text-sm text-neutral-600 dark:text-neutral-400;
   }
 
-  /* == Hallucination Effect == */
-  .hallucination-effect {
+  /* == Background Effect == */
+  .chromatic-abberation {
     /* These are the fallback styles if mix-blend-mode isn't supported */
     @apply bg-cover bg-center;
-    --hallucination-offset: 1.0075;
+    --chromatic-offset: 1.0075;
   }
 
   [class$="-effect"] img {
     @apply align-top m-0 !opacity-0;
   }
   @supports (mix-blend-mode: multiply) {
-    .hallucination-effect {
+    .chromatic-abberation {
       @apply relative overflow-hidden;
       @apply bg-[magenta];
       background-blend-mode: screen;
     }
 
-    .hallucination-effect::before,
-    .hallucination-effect::after {
-      @apply block absolute inset-0 scale-(--hallucination-offset);
+    .chromatic-abberation::before,
+    .chromatic-abberation::after {
+      @apply block absolute inset-0 scale-(--chromatic-offset);
       content: "";
       background: inherit; 
       mix-blend-mode: multiply;
     }
 
-    .hallucination-effect::before {
+    .chromatic-abberation::before {
       @apply bg-[yellow] origin-top-left;
       background-blend-mode: screen;
     }
 
-    .hallucination-effect::after {
+    .chromatic-abberation::after {
       @apply bg-[cyan] origin-bottom-right;
       background-blend-mode: screen;
     }
