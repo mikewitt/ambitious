@@ -1,80 +1,109 @@
-{{/* 
-  ======================
-  Main Homepage Template
-  ======================
-
-  Uses the following variables:
-  params.disableImageOptimization (Default to false)  
-    - Disable image optimization/processing
-
-  params.homepage.disableImageFilter (Default to false) 
-    - Disable the gradient added over the background image on the cover of the homepage
-
-  params.homepage.defaultBackgroundImage (fall back to params.defaultImage; fail gracefully)
-    - Set the background image on the main homepage
-
-*/}}
-{{ define "main" -}}
-  {{- $disableImageOptimization := .Site.Params.disableImageOptimization | default false -}}
-  {{- $disableHomepageImageFilter := .Site.Params.homepage.disableImageFilter | default false -}}
-  <article class="max-w-full bleed-right">
+{{ define "main" }}
+  {{- $backgroundHeight := .Site.Params.style.backgroundHeight | default 800 -}}
+  <article class="max-w-full">
     <div class="relative">
-      <div class="absolute inset-x-0 bottom-0 h-1/2"></div>
-      <div class="mx-auto max-w-7xl p-0 lg:max-w-full">
-        <div class="relative sm:overflow-hidden rounded-2xl lg:rounded-none lg:flex lg:flex-row">
-          <div class="relative z-10 lg:static lg:z-auto lg:flex-shrink-0 lg:w-2/5 px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8 flex flex-col items-center justify-center text-center lg:bg-[--background] dark:lg:bg-[--background-dark]">
-            {{ with .Site.Params.author.image }}
-              {{ $authorImage := "" }}
-              {{ $authorImage = resources.Get . }}
-              {{ if $authorImage }}
-                {{ if not $disableImageOptimization }}
-                  {{ $authorImage = $authorImage.Fill (print "288x288 q" ($.Site.Params.Author.imagequality | default "96")) }}
-                {{ end }}
-                <img
-                  class="mb-2 rounded-full h-36 w-36"
-                  width="144"
-                  height="144"
-                  alt="{{ $.Site.Params.Author.name | default " Author" }}"
-                  src="{{ $authorImage.RelPermalink }}">
-              {{ end }}
-            {{ end }}
-              <h1 class="mb-2 text-4xl font-extrabold text-neutral-200 lg:text-neutral-800 dark:lg:text-neutral-200">
-                {{ .Site.Params.author.name | default "fill me in in params.yaml: author.name" }}
-              </h1>
-              {{ with .Site.Params.author.headline }}
-                <h2 class="mt-0 mb-0 text-xl text-neutral-300">
-                  {{ . | markdownify}}
-                </h2>
-              {{ end }}
-          </div>
-          {{- $homepage_image :=  resources.Get "images/muir_woods_pano.jpg" -}}
-          {{- if $homepage_image }}
-            <div 
-              class="absolute inset-0 z-0 lg:relative lg:inset-auto lg:w-3/5 lg:z-auto"
-              style="background-image: url({{ $homepage_image.RelPermalink }});">
-            <img 
-              class="h-full w-full object-cover mt-0 mr-0 mb-0 ml-0" 
-              src="{{ $homepage_image.RelPermalink }}">
-              {{ if not $disableHomepageImageFilter }}
-                <div 
-                  class="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-600 dark:from-primary-600 dark:to-secondary-800 mix-blend-multiply"></div>
-              {{ else }}
-                <div
-                  class="absolute inset-0 from-primary-500 to-secondary-600 dark:from-primary-600 dark:to-secondary-800 mix-blend-multiply"></div>
-              {{ end }}
-            </div>
+      <div class="fixed inset-x-0 top-0 -z-10">
+        {{ $image := "" -}}
+        {{ with .Site.Params.homepage.homepageImage }}
+          {{ $image = resources.Get . }}
+          {{ if not $image }}{{ $image = resources.GetRemote . }}{{ end }}
+        {{ end }}
+        {{ if not $image }}
+          {{ with .Site.Params.defaultBackgroundImage }}
+            {{ $image = resources.Get . }}
+            {{ if not $image }}{{ $image = resources.GetRemote . }}{{ end }}
           {{ end }}
+        {{ end }}
+        {{- if $image -}}
+          <img
+            class="mt-0 min-h-[{{ $backgroundHeight }}px] w-full object-cover"
+            src="{{ $image.RelPermalink }}"
+            role="presentation">
+          <div
+            class="absolute inset-0 min-h-[{{ $backgroundHeight }}px] bg-gradient-to-t from-neutral-50 to-transparent mix-blend-normal dark:from-neutral-900">
+          </div>
+          <div
+            class="absolute inset-0 min-h-[{{ $backgroundHeight }}px] bg-gradient-to-t from-neutral-100 to-neutral-50 opacity-60 mix-blend-normal dark:from-neutral-900 dark:to-neutral-900">
+          </div>
+        {{- end -}}
+      </div>
+
+      <div class="relative flex flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+        <div class="glass-card flex flex-col items-center">
+        {{- $authorImage := "" -}}
+        {{ with .Site.Params.author.image }}
+          {{ $authorImage = resources.Get . }}
+        {{ end }}
+        {{- if $authorImage -}}
+          <img
+            class="mb-2 h-36 w-36 rounded-full"
+            width="144"
+            height="144"
+            alt="{{ .Site.Params.author.name }}"
+            src="{{ $authorImage.RelPermalink }}">
+        {{- end -}}
+        
+        <h1 class="mb-2 text-4xl font-extrabold text-neutral-800 dark:text-neutral-200">
+          {{ .Site.Params.author.name }}
+        </h1>
+        
+        <h2 class="mt-0 mb-0 text-xl text-neutral-800 dark:text-neutral-300">
+          {{ .Site.Params.author.headline }}
+        </h2>
         </div>
+        
+        <section class="prose dark:prose-invert w-full pt-8">
+          {{ .Content }}
+        </section>
+
       </div>
     </div>
   </article>
-  <div class="prose dark:prose-invert max-w-none px-6 lg:px-8">
-  {{- .Content -}}
-  {{- range site.RegularPages }}
-    <section>
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-      {{ .Summary }}
-    </section>
-  {{- end -}}
-  </div>
-{{- end -}}
+  <div id="background-blur" class="fixed -z-10 opacity-0 inset-x-0 top-0 h-full backdrop-blur-md"></div>
+  <section class="mx-auto max-w-3xl px-6 lg:px-8 prose dark:prose-invert">
+    <h2 class="text-3xl font-bold">Recent Posts</h2>
+    
+    {{ range first 5 .Site.RegularPages }}
+      <article>
+        <h3 class="mb-0"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+          {{ .Date.Format "January 2, 2006" }}
+        </p>
+        <p>{{ .Summary }}</p>
+      </article>
+    {{ end }}
+
+  </section>
+
+  <script>
+    // We wrap this in DOMContentLoaded to make sure the
+    // #background-blur element exists before we try to find it.
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const blurElement = document.getElementById('background-blur');
+      if (!blurElement) {
+        return;
+      }
+      
+      const scrollStop = {{ $backgroundHeight }}; // The scroll position (px) to reach max opacity
+      let ticking = false;
+
+      function updateOpacity() {
+        const scrollY = window.scrollY;
+        const opacity = Math.min(scrollY / scrollStop, 1);
+        blurElement.style.opacity = opacity;
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateOpacity);
+          ticking = true;
+        }
+      });
+
+      updateOpacity(); // Run once on load
+    });
+  </script>
+
+{{ end }}

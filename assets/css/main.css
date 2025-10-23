@@ -52,8 +52,11 @@
   --color-secondary-800: color-mix(in srgb, var(--color-secondary) 76%, black);
   --color-secondary-900: color-mix(in srgb, var(--color-secondary) 68%, black);
 
-  --background-dark: var(--color-neutral-800);
+  --background-dark: var(--color-neutral-900);
   --background-light: #ddc6cc;
+
+  --background-glass: color-mix(in srgb, var(--background-light), transparent 30%);
+  --background-dark-glass: color-mix(in srgb, var(--background-dark), transparent 30%);
 }
 
 @layer base {
@@ -75,14 +78,10 @@
   }
 
   body {
-    @apply flex flex-col h-screen m-auto; /* center content */
-    @apply bg-[var(--background-light)] dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200; /* colors */
-    @apply sm:px-14 md:px-24 lg:px-32; /* padding */
+    @apply flex flex-col h-screen; /* center content */
+    @apply bg-(--background-light) dark:bg-(--background-dark) text-neutral-800 dark:text-neutral-200; /* colors */
     font-family: var(--font-serif);
     line-height: 1.5;
-    /* padding-left: 12.5%;
-    width: 87.5%; */
-    max-width: 1400px;
     counter-reset: sidenote-counter;
   }
 
@@ -110,7 +109,10 @@
     @apply top-0 w-full;
   }
   .navmenu {
-    @apply top-0 z-10 w-full;
+    @apply sticky top-0 z-10 w-full;
+    @apply bg-(--background-glass) dark:bg-(--background-dark-glass);
+    @apply backdrop-blur-md;
+
   }
   .nav-link {
     @apply text-lg;
@@ -127,6 +129,15 @@
   /* homepage hero components */
   .hero-background-image {
     @apply h-full w-full object-cover mt-0 mr-0 mb-0 ml-0;
+  }
+
+  .glass-card {
+    @apply bg-[--background-glass] dark:bg-[--background-dark-glass];
+    @apply backdrop-blur-md;
+    @apply rounded-2xl;
+    @apply p-8;
+    @apply min-w-lg; 
+    @apply shadow-lg;
   }
 
   /* Footer components */
