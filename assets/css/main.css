@@ -104,12 +104,12 @@
   }
 
   a {
-    @apply no-underline hover:text-primary;
+    @apply no-underline hover:text-primary hover:underline;
   }
 
   main {
     display: grid;
-    grid-template-columns: 1fr minmax(0, 70rem) 1fr;
+    grid-template-columns: 1fr minmax(0, 40rem) 1fr;
   }
 
   main > * {
@@ -118,6 +118,15 @@
 
   .bleed-right {
     grid-column: 2 / -1;
+  }
+
+  article {
+    @apply relative;
+    font-size: 1.25rem;
+  }
+
+  article p {
+    @apply my-6;
   }
 }
 
@@ -171,8 +180,34 @@
 
   /* Sidenotes */
   .sidenote {
-    @apply relative text-sm;
-    @apply float-right w-max text-right mt-1 mr-0 pl-1 lg:clear-right lg:-mr-7 lg:text-left lg:-top-2 lg:w-20;
+    /* --- MOBILE STYLES (default) --- */
+    /* On mobile, it's a simple, indented block */
+    @apply w-full text-sm my-4 p-4 border-l-4 border-gray-300 bg-gray-100 dark:bg-gray-800;
+    @apply text-right;
+    @apply not-lg:block;
+    &.is-hidden {
+      @apply not-lg:hidden;
+    }
+
+    /* --- DESKTOP STYLES (the "breakout") --- */
+    /* On large screens, we make it absolute and position it */
+    @apply lg:absolute lg:left-full;
+    @apply lg:w-64 lg:ml-8 text-left;
+    @apply lg:my-0 lg:p-0 lg:border-none lg:bg-transparent lg:dark:bg-transparent;
+  }
+
+  .sidenote::after {
+    /* Hide the line on mobile */
+    @apply content-none;
+
+    /* Show the line on desktop */
+    @apply lg:content-[''];
+    @apply lg:absolute;
+    @apply lg:top-[0.75rem];  
+    @apply lg:right-full;    /* Puts it on the left side of the sidenote */
+    @apply lg:w-6;           /* Line width (1.5rem, fits in the 2rem gutter) */
+    @apply lg:h-px;          /* 1px tall */
+    @apply lg:bg-gray-400 dark:lg:bg-gray-600;
   }
 
   .sidenote-number {
@@ -187,6 +222,8 @@
   .sidenote-number::after {
     content: counter(sidenote-counter);
     @apply align-super text-xs font-bold mr-0.5;
+
+    @apply lg:font-bold lg:mr-0.5;
   }
 
   /* == Background Effect == */

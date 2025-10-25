@@ -28,5 +28,7 @@
 
   {{ $headerJS := resources.Get "js/header.js" }}
   <script src="{{ $headerJS.Permalink }}"></script>
+  {{- $sidenotesJS := resources.Get "js/sidenotes.js" -}}
+  <script src="{{ $sidenotesJS.Permalink }}"></script>
 </body>
 </html>
