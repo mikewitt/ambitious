@@ -5,6 +5,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@font-face {
+    font-family: "Hina Mincho";
+    src: url('/fonts/HinaMincho-Regular.ttf');
+}
+
 .hina-mincho-regular {
   font-family: "Hina Mincho", serif;
   font-weight: 400;
