@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
 <head>
-  {{ partial "head.html" . }}
   {{ with (templates.Defer (dict "key" "global")) }}
-    {{ partial "css.html" . }}
+    {{ partial "head.html" . }}
   {{ end }}
   <script>
     (function() {
@@ -28,7 +27,9 @@
 
   {{ $headerJS := resources.Get "js/header.js" }}
   <script src="{{ $headerJS.Permalink }}"></script>
-  {{- $sidenotesJS := resources.Get "js/sidenotes.js" -}}
-  <script src="{{ $sidenotesJS.Permalink }}"></script>
+  {{ if .HasShortcode "sidenote" -}}
+    {{- $sidenotesJS := resources.Get "js/sidenotes.js" -}}
+    <script src="{{ $sidenotesJS.Permalink }}"></script>
+  {{- end -}}
 </body>
 </html>
