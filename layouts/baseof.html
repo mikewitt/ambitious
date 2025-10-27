@@ -14,11 +14,9 @@
 
   {{- partial "footer.html" . -}}
 
-  {{ $headerJS := resources.Get "js/header.js" }}
-  <script src="{{ $headerJS.Permalink }}"></script>
+  {{ partial "js_integrity.html" "js/header.js" }}
   {{ if .HasShortcode "sidenote" -}}
-    {{- $sidenotesJS := resources.Get "js/sidenotes.js" -}}
-    <script src="{{ $sidenotesJS.Permalink }}"></script>
+    {{- partial "js_integrity.html" "js/sidenotes.js" -}}
   {{- end -}}
 </body>
 </html>
