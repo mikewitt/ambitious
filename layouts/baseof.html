@@ -1,20 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
 <head>
-  {{ with (templates.Defer (dict "key" "global")) }}
-    {{ partial "head.html" . }}
-  {{ end }}
-  <script>
-    (function() {
-      const theme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (theme === 'dark' || (!theme && prefersDark)) {
-        document.documentElement.classList.add('dark');
-      }
-    })();
-  </script>
+  {{ partial "head.html" . }}
 </head>
-<body class="leading-normal">
+<body class="transition-all duration-300 motion-reduce:!transition-none">
   <header class="navmenu">
     {{ partial "header.html" . }}
   </header>

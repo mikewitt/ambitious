@@ -1,6 +1,7 @@
 {{/*  
 Main template for generating the homepage
 -----------------------------------------
+TODO: Update this documentation
 
 Uses the following variables:
 params.style.backgroundHeight (default to 800)
@@ -30,7 +31,8 @@ params.homepage.homepageImage:
       <div class="fixed inset-x-0 top-0 -z-10">
         <div 
           class="absolute inset-0 chromatic-abberation min-h-[{{ $backgroundHeight }}px]"
-          style="background-image:url('{{ $image.RelPermalink }}');"></div>
+          style="background-image:url('{{ $image.RelPermalink }}');"
+          id="fixed-background-image"></div>
         <div
           class="absolute inset-0 min-h-[{{ $backgroundHeight }}px] 
           bg-gradient-to-t 
@@ -78,57 +80,42 @@ params.homepage.homepageImage:
   <section class="flex flex-col mx-auto max-w-3xl px-6 lg:px-8 gap-8">
     <h2 class="text-3xl font-bold">Recent Posts</h2>
     {{ range first 5 .Site.RegularPages -}}
-      <article class="
-        relative 
-        bg-(--background-glass) dark:bg-(--background-dark-glass)
-        rounded-md shadow-md 
-        overflow-hidden transition-all
-        ring-2 ring-primary-50
-        
-        hover:bg-primary-50
-        hover:shadow-indigo-500/50
-
-        dark:hover:bg-primary-900
-        dark:hover:shadow-indigo-100/50
-      ">
-        <div class="prose dark:prose-invert p-6"><h3 class="mb-0"><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400">
-          {{ .Date.Format "January 2, 2006" }}
-        </p>
-        <p>{{ .Summary }}</p></div>
-      </article>
+      {{ block "article_card.html" . }}{{ end }}
     {{- end }}
   </section>
 
-  <script>
-    // We wrap this in DOMContentLoaded to make sure the
-    // #background-blur element exists before we try to find it.
-    document.addEventListener('DOMContentLoaded', () => {
+  {{ $scrollBlurJS := resources.Get "js/background_blur.js" -}}
+  {{ with $scrollBlurJS -}}
+    <script src="{{ $scrollBlurJS.RelPermalink }}"></script>
+  {{ else }}
+    {{ warnf "Unable to load the background blur javascript" }}
+  {{- end }}
+{{ end }}
 
-      const blurElement = document.getElementById('background-blur');
-      if (!blurElement) {
-        return;
-      }
+{{ define "article_card.html" }}
+  <article class="
+      relative 
+      bg-(--background-glass) dark:bg-(--background-dark-glass)
+      rounded-md shadow-md 
+      overflow-hidden
+      ring-2 ring-primary-50
       
-      const scrollStop = {{ $backgroundHeight }}; // The scroll position (px) to reach max opacity
-      let ticking = false;
+      hover:bg-primary-50
+      hover:shadow-indigo-500/50
 
-      function updateOpacity() {
-        const scrollY = window.scrollY;
-        const opacity = Math.min(scrollY / scrollStop, 1);
-        blurElement.style.opacity = opacity;
-        ticking = false;
-      }
-
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(updateOpacity);
-          ticking = true;
-        }
-      });
-
-      updateOpacity(); // Run once on load
-    });
-  </script>
-
+      dark:hover:bg-primary-900
+      dark:hover:shadow-indigo-100/50">
+    <div class="relative p-2">
+      <h3 class="mb-0">
+        <a href="{{ .Permalink }}">
+          <span class="absolute inset-0"></span>
+          <div></div>{{ .Title }}
+        </a>
+      </h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">
+        {{ .Date.Format "January 2, 2006" }}
+      </p>
+      <p>{{ .Summary }}</p>
+    </div>
+  </article>
 {{ end }}

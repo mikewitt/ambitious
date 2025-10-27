@@ -10,7 +10,7 @@
     {{ if $authorImage }}
       {{ $final := $authorImage }}
       {{ if not $disableImageOptimization }}
-        {{ $final = $authorImage.Fill "192x192" }}
+        {{ $final = $authorImage.Fill (print "288x288 q" ( site.Params.Author.imageQuality | default "96" )) }}
       {{ end }}
       <img
         class="!mt-0 !mb-0 h-24 w-24 rounded-full me-4"
@@ -46,6 +46,5 @@
     {{ with .Site.Params.Author.bio | markdownify }}
       <div class="text-sm text-neutral-700 dark:text-neutral-400">{{ . }}</div>
     {{ end }}
-    {{/*  <div class="text-2xl sm:text-lg">{{ partialCached "author-links.html" . }}</div>  */}}
   </div>
 </div>

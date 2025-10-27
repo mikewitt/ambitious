@@ -1,5 +1,7 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
+  {{ $img_list := slice .Site.Params.defaultBackgroundImage }} {{/* TODO: Set a default background location for the section type */}}
+  {{- partial "background.html" (dict "Page" . "ImageList" $img_list) }}
+  <h1 class="lg:mt-[400px]">{{ .Title }}</h1>
   {{ .Content }}
   {{ range .Pages }}
     <section>
