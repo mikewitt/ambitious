@@ -17,7 +17,12 @@
 
 @font-face {
   font-family: "IBM Plex Mono";
-  src: url('/fonts/plexmono/IBMPlexMono-Regular.ttf');
+  src: 
+    url('/fonts/plexmono/IBMPlexMono-Regular.ttf'),
+    url('/fonts/plexmono/IBMPlexMono-Bold.ttf'),
+    url('/fonts/plexmono/IBMPlexMono-BoldItalic.ttf'),
+    url('/fonts/plexmono/IBMPlexMono-ExtraLight.ttf'),
+    url('/fonts/plexmono/IBMPlexMono-ExtraLightItalic.ttf');
 }
 
 .hina-mincho-regular {
@@ -96,11 +101,6 @@
     @apply bg-neutral-400 rounded-full dark:bg-neutral-600;
   }
 
-  header h1 {
-    @apply text-7xl font-bold text-neutral-900 dark:text-neutral-50;
-    @apply font-[Milonga];
-  }
-
   h1 {
     @apply text-5xl font-bold text-neutral-900 dark:text-neutral-50;
   }
@@ -121,19 +121,6 @@
 
   a {
     @apply no-underline hover:text-primary hover:underline;
-  }
-
-  main {
-    display: grid;
-    grid-template-columns: 1fr minmax(0, 40rem) 1fr;
-  }
-
-  main > * {
-    grid-column: 2;
-  }
-
-  .bleed-right {
-    grid-column: 2 / -1;
   }
 
   article {
@@ -163,18 +150,16 @@
   .site-header {
     @apply top-0 w-full;
   }
+  
   .navmenu {
     @apply sticky top-0 z-10 w-full;
     @apply bg-(--background-glass) dark:bg-(--background-dark-glass);
     @apply backdrop-blur-md;
 
   }
+
   .nav-link {
     @apply text-lg;
-  }
-
-  .site-title {
-    @apply text-xl font-semibold;
   }
 
   .main-content {

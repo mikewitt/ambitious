@@ -4,19 +4,22 @@
 
   {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
   {{- $dateHuman := .Date | time.Format ":date_long" -}}
-  <div>
-    <h1 class="lg:mt-[400px]">{{ .Title }}</h1>
-    <div class="flex items-center gap-x-2 mt-1.5">
-      <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
-      <span class="px-2 text-primary-500">&middot;</span>
-      <span>{{ .WordCount }} words</span>
-      <span class="px-2 text-primary-500">&middot;</span>
-      <span>{{ printf "%d mins" .ReadingTime }}</span>
+  <div class="flex flex-col max-w-5xl leading-7 mx-auto">
+    <div class="px-6">
+      <h1 class="mt-[400px] font-[Milonga]">{{ .Title }}</h1>
+      <div class="flex items-center gap-x-2 mt-1.5">
+        <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+        <span class="px-2 text-primary-500">&middot;</span>
+        <span>{{ .WordCount }} words</span>
+        <span class="px-2 text-primary-500">&middot;</span>
+        <span>{{ printf "%d mins" .ReadingTime }}</span>
+      </div>
+      <div class="my-6"></div>
+      {{ partial "author_blurb.html" . }}
     </div>
+    <article class="my-6 mx-6 text-xl/loose max-w-2xl mb-20">
+      {{ .Content }}
+    </article>
   </div>
-  {{ partial "author_blurb.html" . }}
-  <article class="my-6 text-xl/loose">
-    {{ .Content }}
-  </article>
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
 {{- end -}}
