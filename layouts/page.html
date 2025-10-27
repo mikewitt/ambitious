@@ -15,7 +15,7 @@
     </div>
   </div>
   {{ partial "author_blurb.html" . }}
-  <article>
+  <article class="my-6 text-xl/loose">
     {{ .Content }}
   </article>
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}

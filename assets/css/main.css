@@ -140,6 +140,10 @@
     @apply relative;
     font-size: 1.25rem;
 
+    /* & :first-child::first-letter {
+      initial-letter: 3 2;
+    } */
+
     & ul {
       @apply list-disc;
     }
@@ -151,7 +155,6 @@
 
   article p {
     @apply my-6;
-    @apply text-xl/loose;
   }
 }
 
