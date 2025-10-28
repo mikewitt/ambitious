@@ -1,0 +1,8 @@
+{{ $anchor := anchorize .Anchor -}}
+<h{{ .Level }} class="relative group">{{ .Text | safeHTML }}
+    <div id="{{ $anchor }}" class="anchor block relative invisible -top-52"></div>
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 group-hover:opacity-100 select-none">
+        <a class="text-primary-300 dark:text-neutral-700 !no-underline" href="#{{ $anchor }}" aria-label="Anchor">#</a>
+    </span>
+</h{{ .Level }}>
