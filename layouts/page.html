@@ -4,7 +4,7 @@
 
   {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
   {{- $dateHuman := .Date | time.Format ":date_long" -}}
-  <div class="flex flex-col max-w-5xl leading-7 mx-auto">
+  <div class="flex flex-col max-w-5xl leading-7 mx-auto relative">
     <div class="px-6">
       <h1 class="mt-[400px] font-[Milonga]">{{ .Title }}</h1>
       <div class="flex items-center gap-x-2 mt-1.5">
@@ -20,6 +20,12 @@
     <article class="my-6 mx-6 text-xl/loose max-w-2xl mb-20">
       {{ .Content }}
     </article>
+    <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 right-0 z-20">
+      <a href="#top" 
+        class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-24 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400" aria-label="Scroll to top" title="Scroll to top">
+        &uarr;</a>
+    </div>
   </div>
+
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
 {{- end -}}
