@@ -4,9 +4,9 @@
 
   {{- $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" -}}
   {{- $dateHuman := .Date | time.Format ":date_long" -}}
-  <div class="flex flex-col max-w-5xl leading-7 mx-auto relative">
+  <div class="flex flex-col max-w-5xl leading-7 mx-auto relative" id="article">
     <div class="px-6">
-      <h1 class="mt-[400px] font-[Milonga]">{{ .Title }}</h1>
+      <h1 class="mt-[400px] font-[Spacedog] text-8xl text-sc font-black">{{ .Title }}</h1>
       <div class="flex items-center gap-x-2 mt-1.5">
         <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
         <span class="px-2 text-primary-500">&middot;</span>
@@ -19,6 +19,49 @@
     </div>
     <article class="my-6 mx-6 text-xl/loose max-w-2xl mb-20">
       {{ .Content }}
+      <footer class="pt-8 print:hidden">
+          {{ if or .NextInSection .PrevInSection }}
+            {{ $next := .NextInSection }}
+            {{ $prev := .PrevInSection }}
+            <div class="pt-8">
+              <hr class="border-dotted border-neutral-300 dark:border-neutral-600">
+              <div class="flex justify-between pt-3">
+                <span class="flex flex-col">
+                  {{ if $prev }}
+                    {{ $dateMachine = $prev.Date | time.Format "2006-01-02T15:04:05-07:00" -}}
+                    {{ $dateHuman = $prev.Date | time.Format ":date_long" -}}
+                    <a
+                      class="flex text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+                      href="{{ $prev.RelPermalink }}">
+                      <span class="leading-6">
+                        <span class="inline-block rotate-180">&larr;</span>&ensp;{{ $prev.Title | emojify }}
+                      </span>
+                    </a>
+                    <span class="ms-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                      <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+                    </span>
+                  {{ end }}
+                </span>
+                <span class="flex flex-col items-end">
+                  {{ if $next }}
+                    {{ $dateMachine = $next.Date | time.Format "2006-01-02T15:04:05-07:00" -}}
+                    {{ $dateHuman = $next.Date | time.Format ":date_long" -}}
+                    <a
+                      class="flex text-right text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+                      href="{{ $next.RelPermalink }}">
+                      <span class="leading-6">
+                        {{ $next.Title | emojify }}&ensp;<span class="inline-block rotate-180">&rarr;</span>
+                      </span>
+                    </a>
+                    <span class="me-6 mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+                      <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+                    </span>
+                  {{ end }}
+                </span>
+              </div>
+            </div>
+          {{ end }}
+      </footer>
     </article>
     <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 right-0 z-20">
       <a href="#top" 

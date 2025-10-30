@@ -1,7 +1,8 @@
-<footer></footer>
-{{ $copyright := .Site.Params.copyright | default "&copy; { year }" }}
-<div class="fixed bottom-0 w-full left-0 z-5 flex items-center gap-x-4 p-6">
+{{ $copyright := .Site.Params.copyright | default "&copy; { year }" -}}
+<footer class="py-10 print:hidden">
+    <div class="fixed bottom-0 w-full left-0 z-5 flex items-center gap-x-4 p-6">
     <p class="text-sm text-neutral-600 dark:text-neutral-400">
         {{- replace $copyright "{ year }" now.Year | markdownify -}}
     </p>
 </div>
+</footer>

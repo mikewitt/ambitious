@@ -18,17 +18,16 @@
 @font-face {
   font-family: "IBM Plex Mono";
   src: 
-    url('/fonts/plexmono/IBMPlexMono-Regular.ttf'),
-    url('/fonts/plexmono/IBMPlexMono-Bold.ttf'),
-    url('/fonts/plexmono/IBMPlexMono-BoldItalic.ttf'),
-    url('/fonts/plexmono/IBMPlexMono-ExtraLight.ttf'),
-    url('/fonts/plexmono/IBMPlexMono-ExtraLightItalic.ttf');
+    url('/fonts/plexmono/IBMPlexMono-Regular.ttf');
 }
 
-.hina-mincho-regular {
-  font-family: "Hina Mincho", serif;
-  font-weight: 400;
-  font-style: normal;
+@font-face {
+  font-family: "Spacedog";
+  src: url('/fonts/SpaceDogVF.ttf');
+}
+
+@utility text-sc {
+  font-variant-caps: small-caps;
 }
 
 @theme {
@@ -150,7 +149,7 @@
   .site-header {
     @apply top-0 w-full;
   }
-  
+
   .navmenu {
     @apply sticky top-0 z-10 w-full;
     @apply bg-(--background-glass) dark:bg-(--background-dark-glass);

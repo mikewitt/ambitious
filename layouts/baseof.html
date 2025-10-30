@@ -13,13 +13,12 @@
   </main>
 
   {{- partial "footer.html" . -}}
-
-  {{ partial "js_integrity.html" "js/header.js" }}
-  {{ if .HasShortcode "sidenote" -}}
-    {{- partial "js_integrity.html" "js/sidenotes.js" -}}
-  {{- end -}}
-  {{ if .Store.Get "hasBackground" }}
-    {{ partial "js_integrity.html" "js/background_blur.js" }}
-  {{ end }}
 </body>
+{{ partial "js_integrity.html" "js/header.js" -}}
+{{ if .HasShortcode "sidenote" -}}
+  {{- partial "js_integrity.html" "js/sidenotes.js" -}}
+{{- end -}}
+{{ if .Store.Get "hasBackground" -}}
+  {{ partial "js_integrity.html" "js/background_blur.js" }}
+{{ end }}
 </html>
