@@ -26,8 +26,8 @@
         </div>
         </div>
         <div id="background-blur" class="fixed -z-10 opacity-0 inset-x-0 top-0 h-full backdrop-blur-2xl"></div>
-        {{- page.Store.Set "hasBackground" true -}}
+        {{- .Store.Set "hasBackground" true -}}
     {{- else -}}
-        {{- page.Store.Set "hasBackground" false -}}
+        {{- .Store.Set "hasBackground" false -}}
     {{- end -}}
 {{ end }}
