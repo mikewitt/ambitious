@@ -1,21 +1,23 @@
 {{ define "main" -}}
-  {{ $img_list := slice .Site.Params.defaultBackgroundImage }}
-  {{ partial "background.html" (dict "Page" . "ImageList" $img_list) }}
-
-  <div class="flex flex-col max-w-5xl leading-7 mx-auto relative" id="article">
+  {{ $img_list := slice .Site.Params.defaultBackgroundImage -}}
+  {{ partial "background.html" (dict "Page" . "ImageList" $img_list) -}}
+  <div class="grid grid-cols-[1fr_minmax(0,48rem)_1fr] lg:grid-cols-[0_48rem_auto] xl:grid-cols-[minmax(15rem,15%)_48rem_auto] w-full">
+    <div class="relative mt-[400px] col-start-1 not-xl:hidden print:hidden"> {{- /* Right column; TOC */}}
+      {{ partial "blocks/toc.html" . }}
+    </div>
+  <div class="flex flex-col max-w-5xl leading-7 mx-auto relative col-start-2" id="article"> {{/* Middle column; Contents */}}
     <div class="px-6">
-      <h1 class="mt-[400px] font-[Spacedog] text-8xl text-sc font-black">{{ .Title }}</h1>
-      <div class="flex items-center gap-x-2 mt-1.5">
+      <h1 class="mt-[400px] print:mt-3 font-[Spacedog] text-8xl text-sc font-black">{{ .Title }}</h1>
+      <div class="flex items-center gap-x-2 mt-1.5 my-6">
         {{ partial "time.html" .Date }}
         <span class="px-2 text-primary-500">&middot;</span>
         <span>{{ .WordCount }} words</span>
         <span class="px-2 text-primary-500">&middot;</span>
         <span>{{ printf "%d mins" .ReadingTime }}</span>
       </div>
-      <div class="my-6"></div>
-      {{ partial "author_blurb.html" . }}
+      {{ partial "blocks/author_blurb.html" . }}
     </div>
-    <article class="my-6 mx-6 text-xl/loose max-w-2xl mb-20">
+    <article class="relative text-dropcap my-6 mx-6 text-xl/loose max-w-2xl mb-20">
       {{ .Content }}
       <footer class="pt-8 print:hidden" id="footer-navigation">
           {{ if or .NextInSection .PrevInSection }}
@@ -65,6 +67,106 @@
   </div>
   <!-- This defines the tags on the article -->
   {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
+  </div>
+  <script>
+    (function () {
+      'use strict'
+
+      const SCROLL_OFFSET_RATIO = 0.33
+      const TOC_SELECTOR = '#TOCView'
+      const ANCHOR_SELECTOR = '.anchor'
+      const TOC_LINK_SELECTOR = 'a[href^="#"]'
+      const NESTED_LIST_SELECTOR = 'li ul'
+      const ACTIVE_CLASS = 'active'
+      let isJumpingToAnchor = false
+
+      function getActiveAnchorId(anchors, offsetRatio) {
+        const threshold = window.scrollY + window.innerHeight * offsetRatio
+        const tocLinks = [...document.querySelectorAll('#TableOfContents a[href^="#"]')]
+        const tocIds = new Set(tocLinks.map(link => link.getAttribute('href').substring(1)))
+
+        if (isJumpingToAnchor) {
+          for (let i = 0; i < anchors.length; i++) {
+            const anchor = anchors[i]
+            if (!tocIds.has(anchor.id)) continue
+            const top = anchor.getBoundingClientRect().top + window.scrollY
+            if (Math.abs(window.scrollY - top) < 100) {
+              return anchor.id
+            }
+          }
+        }
+
+        for (let i = anchors.length - 1; i >= 0; i--) {
+          const top = anchors[i].getBoundingClientRect().top + window.scrollY
+          if (top <= threshold && tocIds.has(anchors[i].id)) {
+            return anchors[i].id
+          }
+        }
+        return anchors.find(anchor => tocIds.has(anchor.id))?.id || ''
+      }
+
+      function updateTOC({ toc, anchors, links, scrollOffset, collapseInactive }) {
+        const activeId = getActiveAnchorId(anchors, scrollOffset)
+        if (!activeId) return
+
+        links.forEach(link => {
+          const isActive = link.getAttribute('href') === `#${activeId}`
+          link.classList.toggle(ACTIVE_CLASS, isActive)
+
+          if (collapseInactive) {
+            const ul = link.closest('li')?.querySelector('ul')
+            if (ul) ul.style.display = isActive ? '' : 'none'
+          }
+        })
+
+        if (collapseInactive) {
+          const activeLink = toc.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+          let el = activeLink
+          while (el && el !== toc) {
+            if (el.tagName === 'UL') el.style.display = ''
+            if (el.tagName === 'LI') el.querySelector('ul')?.style.setProperty('display', '')
+            el = el.parentElement
+          }
+        }
+      }
+
+      function initTOC() {
+        const toc = document.querySelector(TOC_SELECTOR)
+        if (!toc) return
+
+        const collapseInactive = false
+        const anchors = [...document.querySelectorAll(ANCHOR_SELECTOR)]
+        const links = [...toc.querySelectorAll(TOC_LINK_SELECTOR)]
+
+        if (collapseInactive) {
+          toc.querySelectorAll(NESTED_LIST_SELECTOR).forEach(ul => ul.style.display = 'none')
+        }
+
+        links.forEach(link => {
+          link.addEventListener('click', () => {
+            isJumpingToAnchor = true
+          })
+        })
+
+        const config = {
+          toc,
+          anchors,
+          links,
+          scrollOffset: SCROLL_OFFSET_RATIO,
+          collapseInactive
+        }
+
+        window.addEventListener('scroll', () => updateTOC(config), { passive: true })
+        window.addEventListener('hashchange', () => updateTOC(config), { passive: true })
+
+        updateTOC(config)
+      }
+
+      document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', initTOC)
+        : initTOC()
+    })()
+  </script>
 {{- end -}}
 
 {{ define "_partials/time.html" -}}

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+<html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}" class="overflow-y-scroll font-serif scroll-smooth">
 <head>
   {{ partial "head.html" . }}
 </head>
-<body class="transition-all duration-300 motion-reduce:!transition-none">
-  <header class="navmenu">
+<body class="flex flex-col h-screen transition-all duration-300 motion-reduce:!transition-none">
+  <header class="navmenu print:hidden">
     {{ partial "header.html" . }}
   </header>
 

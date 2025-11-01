@@ -118,10 +118,26 @@
   src: url('/fonts/SpaceDogVF.ttf');
 }
 
+/* -= CUSTOM UTILITIES =- */
+
 @utility text-sc {
   font-variant-caps: small-caps;
 }
 
+@utility text-dropcap {
+  & p:first-child::first-letter {
+    initial-letter: 3 2;
+  }
+}
+
+@utility content-style {
+  ::first-line {
+    text-transform: uppercase;
+  }
+}
+
+
+/* -= THEME =- */
 @theme {
   --font-serif: "Hina Mincho", Palatino, Georgia, serif;
   --font-mono: "IBM Plex Mono";
@@ -205,28 +221,52 @@
   }
 
   a {
-    @apply no-underline hover:text-primary hover:underline;
+    @apply no-underline text-primary hover:underline;
   }
 
-  article {
-    @apply relative;
-    font-size: 1.25rem;
+  article ul {
+    @apply list-disc;
+  }
 
-    /* & :first-child::first-letter {
-      initial-letter: 3 2;
-    } */
-
-    & ul {
-      @apply list-disc;
-    }
-
-    & ol {
-      @apply list-decimal;
-    }
+  article ol {
+    @apply list-decimal;
   }
 
   article p {
     @apply my-6;
+  }
+
+  #TOCView {
+    ul { @apply list-none ml-0; }
+    li { @apply my-1; }
+    ul ul { @apply ml-4; }
+    
+    a {
+      @apply text-neutral-600 hover:text-neutral-900;
+      @apply dark:text-neutral-400 dark:hover:text-neutral-100;
+      @apply transition-colors ease-in-out duration-150;
+    }
+
+    a.active {
+      @apply font-bold text-primary-600 dark:text-primary-400;
+    }
+
+    summary {
+      list-style: none;
+    }
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::before {
+      @apply content-['►'] text-sm mr-2; /* Creates a '►' symbol */
+      @apply inline-block;
+      @apply transition-transform duration-200;
+    }
+
+    &[open] summary::before {
+      @apply rotate-90;
+    }
   }
 }
 
@@ -359,11 +399,5 @@
       @apply bg-[cyan] origin-bottom-right;
       background-blend-mode: screen;
     }
-  }
-}
-
-@utility content-style {
-  ::first-line {
-    text-transform: uppercase;
   }
 }
