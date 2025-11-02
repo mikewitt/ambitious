@@ -17,7 +17,7 @@
       </div>
       {{ partial "blocks/author_blurb.html" . }}
     </div>
-    <article class="relative text-dropcap my-6 mx-6 text-xl/loose max-w-2xl mb-20">
+    <article class="prose prose-xl">
       {{ .Content }}
       <footer class="pt-8 print:hidden" id="footer-navigation">
           {{ if or .NextInSection .PrevInSection }}

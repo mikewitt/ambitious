@@ -2,6 +2,7 @@
 
 @import "tailwindcss";
 @source "hugo_stats.json";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -203,18 +204,6 @@
     @apply bg-neutral-400 rounded-full dark:bg-neutral-600;
   }
 
-  h1 {
-    @apply text-5xl font-bold text-neutral-900 dark:text-neutral-50;
-  }
-
-  h2 {
-    @apply text-4xl font-semibold text-neutral-900 dark:text-neutral-50;
-  }
-
-  h3, h4, h5, h6 {
-    @apply text-3xl font-semibold text-neutral-900 dark:text-neutral-50;
-  }
-
   body {
     @apply bg-(--background-light) dark:bg-(--background-dark) text-neutral-800 dark:text-neutral-200; /* colors */
     counter-reset: sidenote-counter;
@@ -222,18 +211,6 @@
 
   a {
     @apply no-underline text-primary hover:underline;
-  }
-
-  article ul {
-    @apply list-disc;
-  }
-
-  article ol {
-    @apply list-decimal;
-  }
-
-  article p {
-    @apply my-6;
   }
 
   #TOCView {
