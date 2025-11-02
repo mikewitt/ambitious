@@ -28,6 +28,7 @@
         <div id="background-blur" class="fixed -z-10 opacity-0 inset-x-0 top-0 h-full backdrop-blur-2xl"></div>
         {{- .Store.Set "hasBackground" true -}}
         {{- .Store.Set "backgroundHeight" (printf "%dpx" $backgroundHeight) }}
+        {{- .Store.Add "jsList" (slice "js/background_blur.js") }}
     {{- else -}}
         {{- .Store.Set "hasBackground" false -}}
     {{- end -}}
