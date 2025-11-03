@@ -9,10 +9,10 @@ params.homepage.homepageImage:
   - Defaults to params.defaultBackgroundImage if not defined
 */}}
 {{ define "main" }}
+  {{ $img_list := slice .Site.Params.homepage.homepageImage .Site.Params.defaultBackgroundImage }}
+  {{- partial "background.html" (dict "Page" . "ImageList" $img_list) }}
   <article class="flex flex-col max-w-4xl mx-auto">
     <div class="relative">
-      {{ $img_list := slice .Site.Params.homepage.homepageImage .Site.Params.defaultBackgroundImage }}
-      {{- partial "background.html" (dict "Page" . "ImageList" $img_list) }}
       <div class="relative flex flex-col items-center justify-center px-4 py-16 text-center sm:px-6 sm:py-24 lg:py-32 lg:px-8 gap-y-8">
         <div class="glass-card flex flex-col items-center">
         {{- $authorImage := "" -}}
@@ -48,7 +48,7 @@ params.homepage.homepageImage:
   <section class="flex flex-col mx-auto max-w-3xl px-6 lg:px-8 gap-8">
     <h2 class="text-3xl font-bold">Recent Posts</h2>
     {{ range first 5 .Site.RegularPages -}}
-      {{ block "article_card.html" . }}{{ end }}
+      {{ partial "blocks/article_card.html" . }}
     {{- end }}
   </section>
 {{ end }}

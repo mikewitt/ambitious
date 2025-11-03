@@ -1,5 +1,5 @@
 {{ $disableImageOptimization := .Site.Params.disableImageOptimization | default false }}
-<div class="flex">
+<div class="flex mb-24">
   {{ with .Site.Params.Author.image }}
     {{ $authorImage := "" }}
     {{ if or (strings.HasPrefix . "http:") (strings.HasPrefix . "https:") }}

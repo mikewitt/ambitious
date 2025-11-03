@@ -1,0 +1,25 @@
+<article class="
+    relative 
+    bg-(--background-glass) dark:bg-(--background-dark-glass)
+    rounded-md shadow-md 
+    overflow-hidden
+    ring-2 ring-primary-50
+    
+    hover:bg-primary-50
+    hover:shadow-indigo-500/50
+
+    dark:hover:bg-primary-900
+    dark:hover:shadow-indigo-100/50">
+<div class="relative p-8">
+    <h3 class="inset-0">
+    <a href="{{ .Permalink }}">
+        <span class="absolute inset-0"></span>
+        {{ .Title }}
+    </a>
+    </h3>
+    <p class="text-sm text-secondary-600 dark:text-secondary-200">
+    {{ .Date.Format "January 2, 2006" }}
+    </p>
+    <p><div class="line-clamp-3">{{ .Summary }}</div></p>
+</div>
+</article>

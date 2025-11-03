@@ -1,12 +1,20 @@
+{{- /*
+For a given section, renders the page via the `block` syntax.
+*/}}
 {{ define "main" }}
   {{ $img_list := slice .Site.Params.defaultBackgroundImage }} {{/* TODO: Set a default background location for the section type */}}
   {{- partial "background.html" (dict "Page" . "ImageList" $img_list) }}
-  <h1 class="lg:mt-[400px]">{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <section>
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-      {{ .Summary }}
+  <article class="relative flex flex-col max-w-5xl mx-auto gap-12">
+    <div class="glass-card flex flex-col items-center">
+      <h1 class="mt-[400px] print:mt-3 font-[Spacedog] text-8xl text-sc font-black">{{ .Title }}</h1>
+      {{ if .Content }}
+        {{ .Content }}
+      {{ end }}
+    </div>
+    <section class="flex flex-col mx-auto px-6 lg:px-8 gap-8">
+      {{ range .Pages }}
+        {{ partial "blocks/article_card.html" . }}
+      {{ end }}
     </section>
-  {{ end }}
+  </article>
 {{ end }}

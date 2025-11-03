@@ -1,7 +1,7 @@
 {{ define "main" -}}
   {{ $img_list := slice .Site.Params.defaultBackgroundImage -}}
   {{ partial "background.html" (dict "Page" . "ImageList" $img_list) -}}
-  <div class="grid grid-cols-[1fr_minmax(0,48rem)_1fr] lg:grid-cols-[0_48rem_auto] xl:grid-cols-[minmax(15rem,15%)_48rem_auto] w-full">
+  <div class="grid grid-cols-[1fr_minmax(0,var(--main-content-width))_1fr] lg:grid-cols-[0_var(--main-content-width)_auto] xl:grid-cols-[minmax(var(--toc-width),15%)_var(--main-content-width)_auto] w-full">
     <div class="relative mt-[400px] col-start-1 not-xl:hidden print:hidden"> {{- /* Right column; TOC */}}
       {{ partial "blocks/toc.html" . }}
     </div>
@@ -15,9 +15,12 @@
         <span class="px-2 text-primary-500">&middot;</span>
         <span>{{ printf "%d mins" .ReadingTime }}</span>
       </div>
+      <!-- Tags -->
+      {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
+      <!-- Author info -->
       {{ partial "blocks/author_blurb.html" . }}
     </div>
-    <article class="prose prose-xl">
+    <article class="prose prose-xl dark:prose-invert">
       {{ .Content }}
       <footer class="pt-8 print:hidden" id="footer-navigation">
           {{ if or .NextInSection .PrevInSection }}
@@ -65,8 +68,6 @@
         &uarr;</a>
     </div>
   </div>
-  <!-- This defines the tags on the article -->
-  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) -}}
   </div>
 {{- end -}}
 
