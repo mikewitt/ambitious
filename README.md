@@ -10,6 +10,24 @@ TailwindCSS Typography is used because this is effectively the main use case for
 JavaScript and Fonts are stored locally and served up, with minimal external dependencies required. Tailwind is installed locally to generate the CSS files, and the Hugo integration is leveraged to minimize the calls.
 
 ## Installation and Usage
+Start with either an existing site, or a new site based on `hugo new site`.
+
+### Adding the theme
+The way I would suggest using this theme is as a git submodule. Add it via command line:
+
+```bash
+git submodule add -b main https://github.com/mikewitt/ambitious themes/ambitious
+```
+
+Select the theme in your `hugo.(toml|yaml)` with the base `theme: ambitious`
+
+> [!NOTE]
+> Until you've also installed the tailwind dependencies as outlined below, this will still not work.
+
+It is also recommended that you either delete archetypes from your base directory, or overwrite them with the ones in `themes/ambitious/archetypes` (the former being preferred--Hugo will pull archetypes from the theme if the base folder is empty).
+
+### Dependencies
+
 To use this theme, you'll need to add it as a git submodule, then install Tailwind CSS v4 in your main directory, along with Tailwind Typography.
 
 ```bash
@@ -29,9 +47,6 @@ npm install -D @tailwindcss/tailwindcss @tailwindcss/typography
  - Recipe template
  - Theme coloring
  - Scroll-to-top button overlaps with next/prev article footer
- - Taxonomy pages
- - Posts Pages
- - Switch archetype templates to YAML
  - Theme attribution
  - Does title display properly if longer than column width?
  - Color transitions from light <-> dark seem inconsistent because of background image
