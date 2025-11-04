@@ -1,7 +1,34 @@
+{{/*
+This is the "main" block for the main 'taxonomy' pages (e.g. 'Tags')
+*/}}
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-  {{ end }}
+  {{ $img_list := slice .Site.Params.defaultBackgroundImage }}
+  {{- partial "background.html" (dict "Page" . "ImageList" $img_list) }}
+  <article class="flex flex-col max-w-5xl mx-auto gap-12">
+    <div class="glass-card flex flex-col items-center">
+    <h1 class="mt-[400px] print:mt-3 font-[Spacedog] text-8xl text-sc font-black">{{ .Title }}</h1>
+      {{ if .Content -}}
+        {{ .Content }}
+      {{- end -}}
+    </div>
+
+    <section class="flex flex-row flex-wrap gap-8 mt-4 p-8 align-middle glass-card">
+    {{ range .Pages }}
+      <a class="text-4xl p-8 text-center
+        bg-(--background-glass) dark:bg-(--background-dark-glass)
+        shadow-md
+        rounded-full 
+        whitespace-nowrap 
+        ring-2 ring-primary-50
+        hover:bg-primary-50
+        hover:shadow-indigo-500/50
+
+        grow
+
+        dark:hover:bg-primary-900
+        dark:hover:shadow-indigo-100/50" 
+        href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{ end }}
+    </section>
+  </article>
 {{ end }}

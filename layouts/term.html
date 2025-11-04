@@ -1,7 +1,13 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ range .Pages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-  {{ end }}
+  {{ $img_list := slice .Site.Params.defaultBackgroundImage }}
+  {{- partial "background.html" (dict "Page" . "ImageList" $img_list) }}
+  <article class="flex flex-col max-w-5xl mx-auto gap-12">
+    <div class="glass-card flex flex-col items-center">
+      <h1 class="mt-[400px] print:mt-3 font-[Spacedog] text-8xl text-sc font-black">{{ .Title }}</h1>
+      {{ .Content }}
+    </div>
+    {{ range .Pages }}
+      {{ partial "blocks/article_card.html" . }}
+    {{ end }}
+  </article>
 {{ end }}

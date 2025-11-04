@@ -21,8 +21,8 @@ npm install -D @tailwindcss/tailwindcss @tailwindcss/typography
 >
 > There is an issue where Tailwind CSS will not run properly if there is a space in *any part* of the base directory to your project. This is a problem with Hugo, see Hugo issues [17149](https://github.com/golang/go/issues/17149) and [7333](https://github.com/gohugoio/hugo/issues/7333)
 
-> [!INFO]
-> Some browsers will cache the page styles, and will not see updates unless you refresh the page and clear the cache. On Chrome, shift-click the reload button (or Shift+F5) to reload the styles.
+> [!IMPORTANT]
+> Some browsers will cache the page styles, and will not see updates unless you refresh the page and clear the cache. On Chrome, shift-click the reload button (or Shift+F5) to force the browser to ignore the cache and hard refresh the page. So, style changes may not be reflected until you hard refresh the page.
 
 ## TODO:
  - Issues with rendering unnecessarily short articles--content is shrunk

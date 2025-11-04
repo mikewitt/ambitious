@@ -6,6 +6,7 @@ For a given section, renders the page via the `block` syntax.
   {{- partial "background.html" (dict "Page" . "ImageList" $img_list) }}
   <article class="relative flex flex-col max-w-5xl mx-auto gap-12">
     <div class="glass-card flex flex-col items-center">
+      <!-- TODO: If we didn't render a background, we probably shouldn't have the 'mt-[400px]' class and we should assign it dynamically. -->
       <h1 class="mt-[400px] print:mt-3 font-[Spacedog] text-8xl text-sc font-black">{{ .Title }}</h1>
       {{ if .Content }}
         {{ .Content }}
