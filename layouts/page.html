@@ -2,7 +2,7 @@
   {{ $img_list := slice .Site.Params.defaultBackgroundImage -}}
   {{ partial "background.html" (dict "Page" . "ImageList" $img_list) -}}
   <div class="grid grid-cols-[1fr_minmax(0,var(--main-content-width))_1fr] lg:grid-cols-[0_var(--main-content-width)_auto] xl:grid-cols-[minmax(var(--toc-width),15%)_var(--main-content-width)_auto] w-full">
-    <div class="relative mt-[400px] col-start-1 not-xl:hidden print:hidden"> {{- /* Right column; TOC */}}
+    <div class="relative mt-[400px] col-start-1 not-xl:hidden print:hidden mr-8"> {{- /* Right column; TOC */}}
       {{ partial "blocks/toc.html" . }}
     </div>
   <div class="flex flex-col max-w-5xl leading-7 mx-auto relative col-start-2" id="article"> {{/* Middle column; Contents */}}
@@ -20,7 +20,7 @@
       <!-- Author info -->
       {{ partial "blocks/author_blurb.html" . }}
     </div>
-    <article class="prose prose-xl dark:prose-invert">
+    <article class="prose prose-xl prose-custom dark:prose-invert">
       {{ .Content }}
       <footer class="pt-8 print:hidden" id="footer-navigation">
           {{ if or .NextInSection .PrevInSection }}

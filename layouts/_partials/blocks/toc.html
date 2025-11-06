@@ -1,12 +1,35 @@
 {{/* TODO: Don't render the TOC if there is nothing in it. */}}
+{{ with .TableOfContents }}
 <details open id="TOCView"
     class="sticky block text-right
-    w-max ml-auto top-24 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain
-    rounded-lg text-sm">
-  <summary class="flex items-center font-semibold text-xl text-sc px-2">On this page</summary>
-  <div class="py-2 px-4">
-    {{ .TableOfContents }}
+    w-full top-24 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain
+    rounded-lg text-sm pb-2 pl-2">
+  <summary class="flex items-center font-semibold text-xl text-sc justify-end">On this page</summary>
+  <div class="
+    pt-4
+    [&_a]:block
+    [&_a]:pr-1
+
+    [&_li]:py-1
+    [&_li]:my-0
+    [&_ul]:my-0
+    [&_li]:border-r
+    [&_li]:pr-0.5
+    [&_li]:border-neutral-100
+    dark:[&_li]:border-neutral-500
+    
+    [&_li]:hover:border-neutral-900
+    dark:[&_li]:hover:border-neutral-100
+
+    [&_li]:transition-all
+    [&_li]:duration-150
+    [&_li]:ease-in-out
+
+    [&_a]:[text-wrap:pretty]
+    ">
+    {{- . -}}
   </div>
 </details>
 
 {{- page.Store.Add "jsList" (slice "js/toc-highlight.js") -}}
+{{ end }}

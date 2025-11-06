@@ -143,42 +143,67 @@
   --font-mono: "IBM Plex Mono";
   --font-weight-normal: 400;
 
-  --color-main: oklch(46.183% 0.05862 326.432);
-  --color-primary: oklch(51.822% 0.22062 343.315);
-  --color-secondary: oklch(43.876% 0.16157 33.065);
+  /* Base Colors */
+  --color-primary: oklch(60% 0.25 345);
+  --color-secondary: oklch(65% 0.23 260);
+  --color-tertiary: oklch(85% 0.15 65);
+  --color-main: oklch(25% 0.1 310);
 
-  --color-neutral-50: color-mix(in srgb, var(--color-main) 25%, white);
-  --color-neutral-100: color-mix(in srgb, var(--color-main) 40%, white);
-  --color-neutral-200: color-mix(in srgb, var(--color-main) 55%, white);
-  --color-neutral-300: color-mix(in srgb, var(--color-main) 70%, white);
-  --color-neutral-400: color-mix(in srgb, var(--color-main) 85%, white);
-  --color-neutral-500: var(--color-main);
-  --color-neutral-600: color-mix(in srgb, var(--color-main) 92%, black);
-  --color-neutral-700: color-mix(in srgb, var(--color-main) 80%, black);
-  --color-neutral-800: color-mix(in srgb, var(--color-main) 70%, black);
-  --color-neutral-900: color-mix(in srgb, var(--color-main) 50%, black);
+  /* Base White/Black (for OKLCH mixing) */
+  --color-white-oklch: oklch(1 0 0);
+  --color-black-oklch: oklch(0 0 0);
 
-  --color-primary-50: color-mix(in srgb, var(--color-primary) 25%, white);
-  --color-primary-100: color-mix(in srgb, var(--color-primary) 40%, white);
-  --color-primary-200: color-mix(in srgb, var(--color-primary) 55%, white);
-  --color-primary-300: color-mix(in srgb, var(--color-primary) 70%, white);
-  --color-primary-400: color-mix(in srgb, var(--color-primary) 85%, white);
-  --color-primary-500: var(--color-primary);
-  --color-primary-600: color-mix(in srgb, var(--color-primary) 92%, black);
-  --color-primary-700: color-mix(in srgb, var(--color-primary) 84%, black);
-  --color-primary-800: color-mix(in srgb, var(--color-primary) 76%, black);
-  --color-primary-900: color-mix(in srgb, var(--color-primary) 68%, black);
+  /* Primary Ramp (Computed to static OKLCH) */
+  --color-primary-50: oklch(90.000% 0.06250 356.250);
+  --color-primary-100: oklch(84.000% 0.10000 354.000);
+  --color-primary-200: oklch(78.000% 0.13750 351.750);
+  --color-primary-300: oklch(72.000% 0.17500 349.500);
+  --color-primary-400: oklch(66.000% 0.21250 347.250);
+  --color-primary-500: oklch(60.000% 0.25000 345.000);
+  --color-primary-600: oklch(55.200% 0.23000 346.200);
+  --color-primary-700: oklch(50.400% 0.21000 347.400);
+  --color-primary-800: oklch(45.600% 0.19000 348.600);
+  --color-primary-900: oklch(40.800% 0.17000 349.800);
+  --color-primary-950: oklch(34.800% 0.14500 351.300);
 
-  --color-secondary-50: color-mix(in srgb, var(--color-secondary) 25%, white);
-  --color-secondary-100: color-mix(in srgb, var(--color-secondary) 40%, white);
-  --color-secondary-200: color-mix(in srgb, var(--color-secondary) 55%, white);
-  --color-secondary-300: color-mix(in srgb, var(--color-secondary) 70%, white);
-  --color-secondary-400: color-mix(in srgb, var(--color-secondary) 85%, white);
-  --color-secondary-500: var(--color-secondary);
-  --color-secondary-600: color-mix(in srgb, var(--color-secondary) 92%, black);
-  --color-secondary-700: color-mix(in srgb, var(--color-secondary) 84%, black);
-  --color-secondary-800: color-mix(in srgb, var(--color-secondary) 76%, black);
-  --color-secondary-900: color-mix(in srgb, var(--color-secondary) 68%, black);
+  /* Secondary Ramp (Computed to static OKLCH) */
+  --color-secondary-50: oklch(91.250% 0.05750 335.000);
+  --color-secondary-100: oklch(86.000% 0.09200 320.000);
+  --color-secondary-200: oklch(80.750% 0.12650 305.000);
+  --color-secondary-300: oklch(75.500% 0.16100 290.000);
+  --color-secondary-400: oklch(70.250% 0.19550 275.000);
+  --color-secondary-500: oklch(65.000% 0.23000 260.000);
+  --color-secondary-600: oklch(59.800% 0.21160 268.000);
+  --color-secondary-700: oklch(54.600% 0.19320 276.000);
+  --color-secondary-800: oklch(49.400% 0.17480 284.000);
+  --color-secondary-900: oklch(44.200% 0.15640 292.000);
+  --color-secondary-950: oklch(37.700% 0.13340 302.000);
+
+  /* Tertiary Ramp (Computed to static OKLCH) */
+  --color-tertiary-50: oklch(96.250% 0.03750 16.250);
+  --color-tertiary-100: oklch(94.000% 0.06000 26.000);
+  --color-tertiary-200: oklch(91.750% 0.08250 35.750);
+  --color-tertiary-300: oklch(89.500% 0.10500 45.500);
+  --color-tertiary-400: oklch(87.250% 0.12750 55.250);
+  --color-tertiary-500: oklch(85.000% 0.15000 65.000);
+  --color-tertiary-600: oklch(78.200% 0.13800 59.800);
+  --color-tertiary-700: oklch(71.400% 0.12600 54.600);
+  --color-tertiary-800: oklch(64.600% 0.11400 49.400);
+  --color-tertiary-900: oklch(57.800% 0.10200 44.200);
+  --color-tertiary-950: oklch(49.300% 0.08700 37.700);
+
+  /* Neutral Ramp (Computed to static OKLCH) */
+  --color-neutral-50: oklch(81.250% 0.02500 347.500);
+  --color-neutral-100: oklch(70.000% 0.04000 340.000);
+  --color-neutral-200: oklch(58.750% 0.05500 332.500);
+  --color-neutral-300: oklch(47.500% 0.07000 325.000);
+  --color-neutral-400: oklch(36.250% 0.08500 317.500);
+  --color-neutral-500: oklch(25.000% 0.10000 310.000);
+  --color-neutral-600: oklch(23.000% 0.09200 314.000);
+  --color-neutral-700: oklch(20.000% 0.08000 320.000);
+  --color-neutral-800: oklch(17.500% 0.07000 325.000);
+  --color-neutral-900: oklch(12.500% 0.05000 335.000);
+  --color-neutral-950: oklch(10.000% 0.04000 340.000);
 
   --background-dark: var(--color-neutral-900);
   --background-light: #ddc6cc;
@@ -191,40 +216,56 @@
   --toc-width: 15rem;
 }
 
-/* Theme colors */
-@utility prose-pink {
-  --tw-prose-body: var(--color-pink-800);
-  --tw-prose-headings: var(--color-pink-900);
-  --tw-prose-lead: var(--color-pink-700);
-  --tw-prose-links: var(--color-pink-900);
-  --tw-prose-bold: var(--color-pink-900);
-  --tw-prose-counters: var(--color-pink-600);
-  --tw-prose-bullets: var(--color-pink-400);
-  --tw-prose-hr: var(--color-pink-300);
-  --tw-prose-quotes: var(--color-pink-900);
-  --tw-prose-quote-borders: var(--color-pink-300);
-  --tw-prose-captions: var(--color-pink-700);
-  --tw-prose-code: var(--color-pink-900);
-  --tw-prose-pre-code: var(--color-pink-100);
-  --tw-prose-pre-bg: var(--color-pink-900);
-  --tw-prose-th-borders: var(--color-pink-300);
-  --tw-prose-td-borders: var(--color-pink-200);
-  --tw-prose-invert-body: var(--color-pink-200);
-  --tw-prose-invert-headings: var(--color-white);
-  --tw-prose-invert-lead: var(--color-pink-300);
-  --tw-prose-invert-links: var(--color-white);
-  --tw-prose-invert-bold: var(--color-white);
-  --tw-prose-invert-counters: var(--color-pink-400);
-  --tw-prose-invert-bullets: var(--color-pink-600);
-  --tw-prose-invert-hr: var(--color-pink-700);
-  --tw-prose-invert-quotes: var(--color-pink-100);
-  --tw-prose-invert-quote-borders: var(--color-pink-700);
-  --tw-prose-invert-captions: var(--color-pink-400);
-  --tw-prose-invert-code: var(--color-white);
-  --tw-prose-invert-pre-code: var(--color-pink-300);
-  --tw-prose-invert-pre-bg: rgb(0 0 0 / 50%);
-  --tw-prose-invert-th-borders: var(--color-pink-600);
-  --tw-prose-invert-td-borders: var(--color-pink-700);
+@utility prose-custom {
+  /* Base text is neutral */
+  --tw-prose-body: var(--color-neutral-800);
+  --tw-prose-lead: var(--color-neutral-700);
+  --tw-prose-captions: var(--color-neutral-700);
+
+  /* Primary color for key accents */
+  --tw-prose-headings: var(--color-primary-900);
+  --tw-prose-links: var(--color-primary-700);
+  --tw-prose-bold: var(--color-primary-900);
+  --tw-prose-counters: var(--color-primary-600);
+  --tw-prose-bullets: var(--color-primary-400);
+  --tw-prose-quotes: var(--color-neutral-900); /* Quote text neutral */
+  --tw-prose-quote-borders: var(--color-primary-300); /* Quote border primary */
+  
+  /* Secondary color for code blocks */
+  --tw-prose-code: var(--color-secondary-900);
+  --tw-prose-pre-code: var(--color-secondary-100);
+  --tw-prose-pre-bg: var(--color-secondary-900);
+
+  /* Neutral borders */
+  --tw-prose-hr: var(--color-neutral-300);
+  --tw-prose-th-borders: var(--color-neutral-300);
+  --tw-prose-td-borders: var(--color-neutral-200);
+
+  /* --- Inverted (Dark Mode) --- */
+  
+  /* Base text is light neutral */
+  --tw-prose-invert-body: var(--color-neutral-200);
+  --tw-prose-invert-lead: var(--color-neutral-300);
+  --tw-prose-invert-captions: var(--color-neutral-400);
+
+  /* Primary color for light key accents */
+  --tw-prose-invert-headings: var(--color-primary-300);
+  --tw-prose-invert-links: var(--color-primary-400);
+  --tw-prose-invert-bold: var(--color-primary-300);
+  --tw-prose-invert-counters: var(--color-primary-400);
+  --tw-prose-invert-bullets: var(--color-primary-600);
+  --tw-prose-invert-quotes: var(--color-neutral-100); /* Quote text light neutral */
+  --tw-prose-invert-quote-borders: var(--color-primary-700); /* Quote border primary */
+
+  /* Secondary color for light code blocks */
+  --tw-prose-invert-code: var(--color-secondary-300);
+  --tw-prose-invert-pre-code: var(--color-secondary-300);
+  --tw-prose-invert-pre-bg: var(--color-neutral-900); /* Replaced transparent black with neutral-900 */
+
+  /* Light neutral borders */
+  --tw-prose-invert-hr: var(--color-neutral-700);
+  --tw-prose-invert-th-borders: var(--color-neutral-600);
+  --tw-prose-invert-td-borders: var(--color-neutral-700);
 }
 
 @layer base {

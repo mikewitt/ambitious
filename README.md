@@ -39,15 +39,17 @@ npm install -D @tailwindcss/tailwindcss @tailwindcss/typography
 >
 > There is an issue where Tailwind CSS will not run properly if there is a space in *any part* of the base directory to your project. This is a problem with Hugo, see Hugo issues [17149](https://github.com/golang/go/issues/17149) and [7333](https://github.com/gohugoio/hugo/issues/7333)
 
+With this setup, you should now be able to write/develop using `hugo serve --disableFastRender`. Tailwind styles will be recomputed every time, but it has not been particularly slow in my experience.
+
 > [!IMPORTANT]
 > Some browsers will cache the page styles, and will not see updates unless you refresh the page and clear the cache. On Chrome, shift-click the reload button (or Shift+F5) to force the browser to ignore the cache and hard refresh the page. So, style changes may not be reflected until you hard refresh the page.
 
 ## TODO:
  - Issues with rendering unnecessarily short articles--content is shrunk
  - Recipe template
- - Theme coloring
  - Scroll-to-top button overlaps with next/prev article footer
  - Theme attribution
- - Does title display properly if longer than column width?
+ - Does title display properly if longer than column width? (Not really)
  - Color transitions from light <-> dark seem inconsistent because of background image
  - Pagination on the post listing
+ - TOC doesn't highlight all sections on screen at once (only one, I think near top)
