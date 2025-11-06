@@ -1,30 +1,22 @@
-{{/* TODO: Don't render the TOC if there is nothing in it. */}}
-{{ with .TableOfContents }}
+{{ $toc := .TableOfContents -}}
+{{ if eq (len ($toc | plainify)) 0 }}
+  {{ $toc = false }}
+{{ end }}
+{{ with $toc }}
 <details open id="TOCView"
     class="sticky block text-right
     w-full top-24 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain
     rounded-lg text-sm pb-2 pl-2">
   <summary class="flex items-center font-semibold text-xl text-sc justify-end">On this page</summary>
-  <div class="
-    pt-4
-    [&_a]:block
-    [&_a]:pr-1
-
-    [&_li]:py-1
-    [&_li]:my-0
-    [&_ul]:my-0
-    [&_li]:border-r
-    [&_li]:pr-0.5
-    [&_li]:border-neutral-100
-    dark:[&_li]:border-neutral-500
-    
-    [&_li]:hover:border-neutral-900
-    dark:[&_li]:hover:border-neutral-100
-
-    [&_li]:transition-all
-    [&_li]:duration-150
-    [&_li]:ease-in-out
-
+  <!-- Good luck styling this div if you want to change it! -->
+  <div class="pt-4
+    [&_a]:block [&_a]:pr-1
+    [&_li]:py-1 [&_li]:my-0 [&_ul]:my-0 [&_li]:border-r [&_li]:pr-0.5
+    [&_li]:border-neutral-100 dark:[&_li]:border-neutral-500
+    [&_li]:has-[>a.active-ancestor]:border-neutral-300 dark:[&_li]:has-[>a.active-ancestor]:border-neutral-400
+    [&_li]:has-[>a.active]:border-neutral-800 dark:[&_li]:has-[>a.active]:border-neutral-200
+    [&_li]:hover:border-neutral-900 dark:[&_li]:hover:border-neutral-100
+    [&_li]:transition-all [&_li]:duration-150 [&_li]:ease-in-out
     [&_a]:[text-wrap:pretty]
     ">
     {{- . -}}

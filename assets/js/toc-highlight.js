@@ -7,6 +7,7 @@
   const TOC_LINK_SELECTOR = 'a[href^="#"]'
   const NESTED_LIST_SELECTOR = 'li ul'
   const ACTIVE_CLASS = 'active'
+  const ANCESTOR_CLASS = 'active-ancestor'
 
   /**
    * Gets all anchor IDs that are currently visible in the viewport.
@@ -40,14 +41,13 @@
   }
 
   /**
-   * MODIFIED: Updates the TOC by applying 'active' class to *all* visible links.
+   * Update the TOC by applying 'active' class to *all* visible links.
    * If no links are visible, it falls back to the *last* active section.
    */
   function updateTOC({ toc, anchors, links, tocIds, collapseInactive }) {
     // 1. Get the Set of *all* visible anchor IDs
     let activeIds = getVisibleAnchorIds(anchors, tocIds)
 
-    // --- THIS IS THE NEW LOGIC ---
     // 2. If no headings are visible, find the last one scrolled past
     if (activeIds.size === 0) {
       // Set a "line" at 50% of the viewport height
@@ -79,24 +79,50 @@
         activeIds.add(lastActiveId)
       }
     }
-    // --- END OF NEW LOGIC ---
 
-
-    // 3. Apply the 'active' class to all links in the activeIds Set
+    // 3. Apply the 'active' class and find ancestors
+    const ancestorLinks = new Set() // Keep track of ancestors
+    
     links.forEach(link => {
       const linkId = link.getAttribute('href').substring(1)
       const isActive = activeIds.has(linkId)
       
-      // Apply the 'active' class back to the <a> tag
+      // Apply .active
       link.classList.toggle(ACTIVE_CLASS, isActive)
 
-      // --- Handle collapsing (unchanged from your original logic) ---
+      // Handle collapsing
       if (collapseInactive) {
         const ul = link.closest('li')?.querySelector('ul')
         if (ul) ul.style.display = isActive ? '' : 'none'
       }
+
+      // If this link is active, find its ancestors
+      if (isActive) {
+        let el = link.closest('li')
+        while (el) {
+          let parentLi = el.parentElement.closest('li')
+          if (!parentLi) break // Reached the top <ul>
+          let parentLink = parentLi.querySelector('a') // Get the parent <li>'s <a> tag
+          if (parentLink) {
+            ancestorLinks.add(parentLink) // Add to our Set
+          }
+          el = parentLi // Move up for next loop
+        }
+      }
     })
 
+    // 4. Apply/Remove ancestor classes
+    links.forEach(link => {
+      // Add ancestor class if it's in the set AND not active itself
+      if (ancestorLinks.has(link) && !link.classList.contains(ACTIVE_CLASS)) {
+        link.classList.add(ANCESTOR_CLASS)
+      } else {
+        // Clean up any old ancestor classes
+        link.classList.remove(ANCESTOR_CLASS)
+      }
+    })
+
+    // 5. Handle expanding
     if (collapseInactive) {
       // This part expands the parents of *all* active links
       activeIds.forEach(activeId => {
@@ -112,7 +138,7 @@
   }
 
   /**
-   * MODIFIED: Initializes the TOC highlighting.
+   * Initialize the TOC highlighting.
    */
   function initTOC() {
     const toc = document.querySelector(TOC_SELECTOR)
