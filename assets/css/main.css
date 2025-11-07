@@ -213,6 +213,7 @@
 
   --main-content-width: 48rem;
   --sidenote-width: 16rem;
+  --full-bleed: calc(var(--sidenote-width) + var(--main-content-width));
   --toc-width: 15rem;
 }
 

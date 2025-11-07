@@ -1,6 +1,9 @@
 ## About
 'Ambitious' is a theme that I originally thought would be overly ambitious to theme my own website. I started with the [blowfish](https://blowfish.page/) theme, but quickly realized that I wanted to make changes that were not trivial. Additionally, while it is lightweight, it is designed around making things work well in multiple languages and offers a high degree of customization, if you want something that it's designed for. 
 
+> [!NOTE]
+> There are a number of features that are used that are only very recently added, some of which don't work in Firefox. It shouldn't cause any issues in incompatible browsers, per se, but it may not look as good except in very recent versions of Chrome (such as the `first-letter` CSS selector, or the `text-wrap:pretty` style).
+
 I wanted a theme that was even lighter, but still accomplished many of the things I want. Taking some inspiration from [Tufte CSS](https://edwardtufte.github.io/tufte-css/), I've changed it a bit and modified it to be easier to extend.
 
 Additionally, the theme is compliant with the newer Hugo templating style (as of 0.146.0), and Tailwind v4.
@@ -45,10 +48,10 @@ With this setup, you should now be able to write/develop using `hugo serve --dis
 > Some browsers will cache the page styles, and will not see updates unless you refresh the page and clear the cache. On Chrome, shift-click the reload button (or Shift+F5) to force the browser to ignore the cache and hard refresh the page. So, style changes may not be reflected until you hard refresh the page.
 
 ## TODO:
- - Issues with rendering unnecessarily short articles--content is shrunk
  - Recipe template
- - Scroll-to-top button overlaps with next/prev article footer
- - Theme attribution
- - Does title display properly if longer than column width? (Not really)
  - Color transitions from light <-> dark seem inconsistent because of background image
  - Pagination on the post listing
+ - fix breakpoints for scaling content
+    - code/highlight divs
+    - md->lg margins
+ - scroll to top button should look better
