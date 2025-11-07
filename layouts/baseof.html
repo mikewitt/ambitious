@@ -14,11 +14,11 @@
   </main>
 
   {{- partial "footer.html" . -}}
+  {{ range page.Store.Get "jsList" -}}
+    {{- partial "js_integrity.html" . }}
+  {{- end }}
+  {{ if .HasShortcode "sidenote" -}}
+    {{- partial "js_integrity.html" "js/sidenotes.js" -}}
+  {{- end -}}
 </body>
-{{ range page.Store.Get "jsList" -}}
-  {{- partial "js_integrity.html" . }}
-{{- end }}
-{{ if .HasShortcode "sidenote" -}}
-  {{- partial "js_integrity.html" "js/sidenotes.js" -}}
-{{- end -}}
 </html>

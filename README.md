@@ -52,4 +52,3 @@ With this setup, you should now be able to write/develop using `hugo serve --dis
  - Does title display properly if longer than column width? (Not really)
  - Color transitions from light <-> dark seem inconsistent because of background image
  - Pagination on the post listing
- - TOC doesn't highlight all sections on screen at once (only one, I think near top)
