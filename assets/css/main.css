@@ -266,7 +266,7 @@
   --tw-prose-invert-pre-bg: var(--color-neutral-900); /* Replaced transparent black with neutral-900 */
 
   /* Light neutral borders */
-  --tw-prose-invert-hr: var(--color-neutral-700);
+  --tw-prose-invert-hr: var(--color-neutral-400);
   --tw-prose-invert-th-borders: var(--color-neutral-600);
   --tw-prose-invert-td-borders: var(--color-neutral-700);
 }

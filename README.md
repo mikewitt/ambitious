@@ -58,6 +58,5 @@ Extremely long articles may break certain things with the style. In particular, 
     - code/highlight divs
     - md->lg margins
  - Image rendering and options for floating and full-bleed width
- - scale `<hr>` to be full-bleed width
  - We can customize the rendering of the TOC with the `fragments` bit
  - Print-optimized version
