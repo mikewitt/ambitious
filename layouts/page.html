@@ -20,7 +20,7 @@
         <!-- Author info -->
         {{ partial "blocks/author_blurb.html" . }}
       </div>
-      <article class="w-full prose prose-xl prose-ambitious dark:prose-invert [&_.highlight]:w-max [&_.highlight]:overflow-visible [&_.highlight]:max-w-(--full-bleed) [&_.highlight]:not-lg:max-w-[calc(100vw-4rem)]">
+      <article class="w-full prose prose-xl prose-ambitious dark:prose-invert max-w-none [&_.highlight]:w-max [&_.highlight]:overflow-visible [&_.highlight]:max-w-(--full-bleed) [&_.highlight]:not-lg:max-w-[calc(100vw-4rem)] prose-hr:max-w-(--full-bleed) prose-hr:overflow-visible prose-hr:w-(--full-bleed)">
         {{ .Content }}
         <footer class="pt-8 print:hidden" id="footer-navigation">
             {{ if or .NextInSection .PrevInSection }}
