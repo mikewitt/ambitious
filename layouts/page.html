@@ -1,13 +1,13 @@
 {{ define "main" -}}
   {{ $img_list := slice .Site.Params.defaultBackgroundImage -}}
   {{ partial "background.html" (dict "Page" . "ImageList" $img_list) -}}
-  <div class="grid grid-cols-[1fr_minmax(0,var(--main-content-width))_1fr] lg:grid-cols-[0_var(--main-content-width)_auto] xl:grid-cols-[minmax(var(--toc-width),15%)_var(--main-content-width)_auto] w-full">
+  <div class="grid grid-cols-[1fr_minmax(0,var(--main-content-width))_1fr] lg:grid-cols-[2rem_var(--main-content-width)_auto] xl:grid-cols-[minmax(var(--toc-width),15%)_var(--main-content-width)_auto] w-full">
     <div class="relative mt-[400px] col-start-1 not-xl:hidden print:hidden mr-8"> {{- /* Right column; TOC */}}
       {{ partial "blocks/toc.html" . }}
     </div>
     <div class="flex flex-col leading-7 relative col-start-2 w-full" id="article"> {{/* Middle column; Contents */}}
       <div class="px-6">
-        <h1 class="mt-[400px] print:mt-3 font-[Spacedog] text-8xl text-sc font-black overflow-visible max-w-(--full-bleed) [text-wrap:pretty] w-screen">{{ .Title }}</h1>
+        <h1 class="mt-[400px] print:mt-3 font-[Spacedog] text-8xl text-sc font-black md:overflow-visible md:max-w-(--full-bleed) [text-wrap:pretty] md:w-screen">{{ .Title }}</h1>
         <div class="flex items-center gap-x-2 mt-1.5 my-6">
           {{ partial "time.html" .Date }}
           <span class="px-2 text-primary-500">&middot;</span>
@@ -20,7 +20,7 @@
         <!-- Author info -->
         {{ partial "blocks/author_blurb.html" . }}
       </div>
-      <article class="w-full prose prose-xl prose-custom dark:prose-invert [&_.highlight]:w-screen [&_.highlight]:overflow-visible [&_.highlight]:max-w-(--full-bleed)">
+      <article class="w-full prose prose-xl prose-ambitious dark:prose-invert [&_.highlight]:w-max [&_.highlight]:overflow-visible [&_.highlight]:max-w-(--full-bleed) [&_.highlight]:not-lg:max-w-[calc(100vw-4rem)]">
         {{ .Content }}
         <footer class="pt-8 print:hidden" id="footer-navigation">
             {{ if or .NextInSection .PrevInSection }}
@@ -62,11 +62,7 @@
             {{ end }}
         </footer>
       </article>
-      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 right-0 z-20 hidden">
-        <a href="#top" 
-          class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-24 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400" aria-label="Scroll to top" title="Scroll to top">
-          &uarr;</a>
-      </div>{{ page.Store.Add "jsList" (slice "js/top-scroller.js") }}
+      {{ partial "blocks/top_scroller.html" }}
     </div>
   </div>
 {{- end -}}

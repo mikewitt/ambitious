@@ -47,6 +47,9 @@ With this setup, you should now be able to write/develop using `hugo serve --dis
 > [!IMPORTANT]
 > Some browsers will cache the page styles, and will not see updates unless you refresh the page and clear the cache. On Chrome, shift-click the reload button (or Shift+F5) to force the browser to ignore the cache and hard refresh the page. So, style changes may not be reflected until you hard refresh the page.
 
+# Usage Notes:
+Extremely long articles may break certain things with the style. In particular, if the TOC is long enough that it needs a scroll bar, I'm not sure how it will behave, or if it will behave properly.
+
 ## TODO:
  - Recipe template
  - Color transitions from light <-> dark seem inconsistent because of background image
@@ -54,4 +57,7 @@ With this setup, you should now be able to write/develop using `hugo serve --dis
  - fix breakpoints for scaling content
     - code/highlight divs
     - md->lg margins
- - scroll to top button should look better
+ - Image rendering and options for floating and full-bleed width
+ - scale `<hr>` to be full-bleed width
+ - We can customize the rendering of the TOC with the `fragments` bit
+ - Print-optimized version
