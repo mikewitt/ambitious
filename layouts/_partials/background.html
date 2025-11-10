@@ -4,8 +4,6 @@
     {{- if not $image -}}
         {{- with resources.Get . -}}
             {{- $image = . -}}
-        {{- else with resources.GetRemote . -}}
-            {{- $image = . -}}
         {{- end -}}
     {{- end -}}
 {{- end -}}
