@@ -1,5 +1,5 @@
 ## About
-'Ambitious' is a theme that I originally thought would be overly ambitious to theme my own website. I started with the [blowfish](https://blowfish.page/) theme, but quickly realized that I wanted to make changes that were not trivial. Additionally, while it is lightweight, it is designed around making things work well in multiple languages and offers a high degree of customization, if you want something that it's designed for. 
+'Ambitious' is a theme that I originally thought would be overly ambitious to theme my own website. I started with the [blowfish](https://blowfish.page/) theme, but quickly realized that I wanted to make changes that were not trivial. Additionally, while it is lightweight, it is designed around making things work well in multiple languages and offers a high degree of customization, if you want something that it's designed for. But, that's not what I wanted or needed.
 
 > [!NOTE]
 > There are a number of features that are used that are only very recently added, some of which don't work in Firefox. It shouldn't cause any issues in incompatible browsers, per se, but it may not look as good except in very recent versions of Chrome (such as the `first-letter` CSS selector, or the `text-wrap:pretty` style).
@@ -31,11 +31,13 @@ It is also recommended that you either delete archetypes from your base director
 
 ### Dependencies
 
-To use this theme, you'll need to add it as a git submodule, then install Tailwind CSS v4 in your main directory, along with Tailwind Typography.
+To use this theme, you'll need to add it as a git submodule, then install Tailwind CSS v4 in your main directory, along with Tailwind Typography. Install `npm` per your system requirements, then run:
 
 ```bash
-npm install -D @tailwindcss/tailwindcss @tailwindcss/typography
+npm install -D tailwindcss @tailwindcss/cli @tailwindcss/typography
 ```
+
+This will create a new folder, `node_modules` in your project. I think that typically, people would choose to add this to their `.gitignore`, however, for deploying to a service such as Cloudflare Pages, that will be required to generate the themes via Hugo. So, leave it in, and commit it to your branch. Not sure I like that but it is what it is.
 
 > [!CAUTION]
 > Windows users:
