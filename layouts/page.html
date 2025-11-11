@@ -1,13 +1,14 @@
 {{ define "main" -}}
   {{ $img_list := slice .Site.Params.defaultBackgroundImage -}}
   {{ partial "background.html" (dict "Page" . "ImageList" $img_list) -}}
+  {{ $epigraph := .Params.epigraph -}}
   <div class="grid grid-cols-[1fr_minmax(0,var(--main-content-width))_1fr] lg:grid-cols-[2rem_var(--main-content-width)_auto] xl:grid-cols-[minmax(var(--toc-width),15%)_var(--main-content-width)_auto] w-full">
     <div class="relative mt-[400px] col-start-1 not-xl:hidden print:hidden mr-8"> {{- /* Right column; TOC */}}
       {{ partial "blocks/toc.html" . }}
     </div>
     <div class="flex flex-col leading-7 relative col-start-2 w-full" id="article"> {{/* Middle column; Contents */}}
       <div class="px-6">
-        <h1 class="mt-[400px] print:mt-3 font-[Spacedog] text-8xl text-sc font-black md:overflow-visible md:max-w-(--full-bleed) [text-wrap:pretty] md:w-screen">{{ .Title }}</h1>
+        <h1 class="mt-[400px] print:mt-3 font-[Spacedog] text-8xl text-sc font-black md:overflow-visible md:max-w-(--full-bleed) text-pretty md:w-screen">{{ .Title }}</h1>
         <div class="flex items-center gap-x-2 mt-1.5 my-6">
           {{ partial "time.html" .Date }}
           <span class="px-2 text-primary-500">&middot;</span>
@@ -21,6 +22,15 @@
         {{ partial "blocks/author_blurb.html" . }}
       </div>
       <article class="w-full prose prose-xl prose-ambitious dark:prose-invert max-w-none [&_.highlight]:w-max [&_.highlight]:overflow-visible [&_.highlight]:max-w-(--full-bleed) [&_.highlight]:not-lg:max-w-[calc(100vw-4rem)] prose-hr:max-w-(--full-bleed) prose-hr:overflow-visible prose-hr:w-(--full-bleed)">
+        {{ if $epigraph -}}
+          {{ if $epigraph.source -}}
+            {{ (printf "{{< epigraph source=\"%s\">}}%s{{< /epigraph >}}" $epigraph.source $epigraph.text) | .RenderString }}
+          {{ else if $epigraph.text -}}
+            {{ (printf "{{< epigraph >}}%s{{< /epigraph >}}" $epigraph.text) | .RenderString }}
+          {{ else -}}
+            {{ warnf "epigraph declared but missing at least .text (and optional .source)"}}
+          {{ end -}}
+        {{ end -}}
         {{ .Content }}
         <footer class="pt-8 print:hidden" id="footer-navigation">
             {{ if or .NextInSection .PrevInSection }}

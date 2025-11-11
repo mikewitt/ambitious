@@ -52,16 +52,18 @@ With this setup, you should now be able to write/develop using `hugo serve --dis
 # Usage Notes:
 Extremely long articles may break certain things with the style. In particular, if the TOC is long enough that it needs a scroll bar, I'm not sure how it will behave, or if it will behave properly.
 
+If you want to start with an epigraph, then add a `params.epigraph.text` to your frontmatter of a page. Additionally, you can source it with `parmas.epigraph.source`. This avoids the epigraph showing up in your summary, which it would if you use the epigraph shortcode.
+
 ## TODO:
   - Recipe template
   - Color transitions from light <-> dark seem inconsistent because of background image
   - Pagination on the post listing
   - Print-optimized version
   - Image rendering and options for floating and full-bleed width
+  - Proper documentation
 
 ### FIXME:
   - breakpoints for scaling content
     - full-bleed
     - md->lg margins
   - We can customize the rendering of the TOC with the `fragments` bit
-  - Epigraphs at the start of an article are included in the summary
