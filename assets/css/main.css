@@ -424,7 +424,7 @@
   }
 
   .chromatic-abberation img {
-    @apply align-top m-0 !opacity-0;
+    @apply align-top m-0 opacity-0!;
   }
 
   @supports (mix-blend-mode: multiply) {

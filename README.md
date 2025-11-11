@@ -53,12 +53,15 @@ With this setup, you should now be able to write/develop using `hugo serve --dis
 Extremely long articles may break certain things with the style. In particular, if the TOC is long enough that it needs a scroll bar, I'm not sure how it will behave, or if it will behave properly.
 
 ## TODO:
- - Recipe template
- - Color transitions from light <-> dark seem inconsistent because of background image
- - Pagination on the post listing
- - fix breakpoints for scaling content
-    - code/highlight divs
+  - Recipe template
+  - Color transitions from light <-> dark seem inconsistent because of background image
+  - Pagination on the post listing
+  - Print-optimized version
+  - Image rendering and options for floating and full-bleed width
+
+### FIXME:
+  - breakpoints for scaling content
+    - full-bleed
     - md->lg margins
- - Image rendering and options for floating and full-bleed width
- - We can customize the rendering of the TOC with the `fragments` bit
- - Print-optimized version
+  - We can customize the rendering of the TOC with the `fragments` bit
+  - Epigraphs at the start of an article are included in the summary
