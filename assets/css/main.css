@@ -393,7 +393,7 @@
     /* Show the line on desktop */
     @apply lg:content-[''];
     @apply lg:absolute;
-    @apply lg:top-[0.75rem];  
+    @apply lg:top-3;  
     @apply lg:right-full;    /* Puts it on the left side of the sidenote */
     @apply lg:w-6;           /* Line width (1.5rem, fits in the 2rem gutter) */
     @apply lg:h-px;          /* 1px tall */
