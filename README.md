@@ -67,3 +67,4 @@ If you want to start with an epigraph, then add a `params.epigraph.text` to your
     - full-bleed
     - md->lg margins
   - We can customize the rendering of the TOC with the `fragments` bit
+  - floating footer can overlap with text and be illegible
