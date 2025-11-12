@@ -54,6 +54,19 @@ Extremely long articles may break certain things with the style. In particular, 
 
 If you want to start with an epigraph, then add a `params.epigraph.text` to your frontmatter of a page. Additionally, you can source it with `parmas.epigraph.source`. This avoids the epigraph showing up in your summary, which it would if you use the epigraph shortcode.
 
+## Shortcodes:
+### sidenote
+The `sidenote` shortcode creates a sidenote. No named parameters necessary.
+
+### epigraph
+You can include an epigraph via the `epigraph` shortcode. If you want to start an article with an epigraph, you can also include `params.epigraph.text` and optionally `params.epigraph.source` for the text and source, respectively.
+
+> [!NOTE]
+> If you use the epigraph shortcode at the beginning of the article, it may be rendered in a summary card. Using the `params.epigraph` to start an article with an epigraph does not have the same issue.
+
+### year
+The `year` shortcode just includes the current year. It is included primarily to customize the copyright message displayed on each page. The string in `copyright` (configured in `hugo.(toml|yaml|json`) is rendered through Hugo, so you can include shortcodes. I wouldn't recommend using other shortcodes in the main `copyright` field, however.
+
 ## TODO:
   - Recipe template
   - Color transitions from light <-> dark seem inconsistent because of background image
@@ -61,6 +74,7 @@ If you want to start with an epigraph, then add a `params.epigraph.text` to your
   - Print-optimized version
   - Image rendering and options for floating and full-bleed width
   - Proper documentation
+  - Mark draft articles if we're rendering drafts
 
 ### FIXME:
   - breakpoints for scaling content
