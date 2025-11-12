@@ -4,7 +4,7 @@
 {{ with (templates.Defer (dict "key" "global")) }}
     {{- partial "head/css.html" . }}
 {{- end }}
-{{ partialCached "head/js.html" . }}
+{{ partialCached "js_integrity.html" "js/main.js" }}
 <script>
 (function() {
     const theme = localStorage.getItem('theme');

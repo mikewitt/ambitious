@@ -1,8 +1,8 @@
-{{ $copyright := .Site.Params.copyright | default "&copy; { year }" -}}
+{{ $copyright := .Site.Copyright | default "&copy; {{< year >}}" -}}
 <footer class="py-10 print:hidden">
     <div class="fixed bottom-0 w-full left-0 z-5 flex items-center gap-x-4 p-6">
     <p class="text-sm text-neutral-600 dark:text-neutral-400">
-        {{- replace $copyright "{ year }" now.Year | markdownify -}}
+        {{-  $copyright | .Page.RenderString -}}
     </p>
     <div class="fixed bottom-0 w-full right-0 z-5 flex items-center justify-end gap-x-4 p-6">
         <p class="text-sm text-neutral-600 dark:text-neutral-400">Powered by  <a href="https://gohugo.io">Hugo</a> &amp; <a href="https://github.com/mikewitt/ambitious">Ambitious</a></p>
