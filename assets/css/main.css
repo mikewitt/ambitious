@@ -215,8 +215,6 @@
   --sidenote-width: 16rem;
   --full-bleed: calc(var(--sidenote-width) + var(--main-content-width));
   --toc-width: 15rem;
-
-  /* --breakpoint-lg: calc(var(--main-content-width) + var(--sidenote-width) + 2rem); */
 }
 
 @utility prose-ambitious {
