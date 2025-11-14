@@ -1,0 +1,12 @@
+{{ $start := 2 }}
+{{ $stop := 4 }}
+<nav id="TableOfContents">
+    <ul>
+    {{ range .Fragments.HeadingsMap }}
+        {{ if and (ge .Level $start) (le .Level $stop)}}
+            <li><a href="#{{ .ID }}">{{ .Title }}</a></li>
+            <!-- pre>{{ debug.Dump . }}</pre -->
+        {{ end }}
+    {{ end }}
+    </ul>
+</nav>
