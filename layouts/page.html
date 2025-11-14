@@ -16,15 +16,7 @@
         {{ partial "blocks/author_blurb.html" . }}
       </div>
       <article class="w-full prose prose-xl prose-ambitious dark:prose-invert max-w-none [&_.highlight]:w-max [&_.highlight]:overflow-visible [&_.highlight]:max-w-(--full-bleed) [&_.highlight]:not-lg:max-w-[calc(100vw-4rem)] prose-hr:max-w-(--full-bleed) prose-hr:overflow-visible prose-hr:w-(--full-bleed)">
-        {{ if $epigraph -}}
-          {{ if $epigraph.source -}}
-            {{ (printf "{{< epigraph source=\"%s\">}}%s{{< /epigraph >}}" $epigraph.source $epigraph.text) | .RenderString }}
-          {{ else if $epigraph.text -}}
-            {{ (printf "{{< epigraph >}}%s{{< /epigraph >}}" $epigraph.text) | .RenderString }}
-          {{ else -}}
-            {{ warnf "epigraph declared but missing at least .text (and optional .source)"}}
-          {{ end -}}
-        {{ end -}}
+        {{ partial "init-epigraph.html" $epigraph }}
         {{ .Content }}
         {{ partial "article/blocks/footer.html" . }}
       </article>
@@ -32,3 +24,15 @@
     </div>
   </div>
 {{- end -}}
+
+{{ define "_partials/init-epigraph.html" }}
+{{ with . }}
+  {{ if .source -}}
+    {{ (printf "{{< epigraph source=\"%s\">}}%s{{< /epigraph >}}" .source .text) | page.RenderString }}
+  {{ else if .text -}}
+    {{ (printf "{{< epigraph >}}%s{{< /epigraph >}}" .text) | page.RenderString }}
+  {{ else -}}
+    {{ warnf "epigraph declared but missing at least .text (and optional .source)"}}
+  {{ end -}}
+{{ end -}}
+{{ end }}
