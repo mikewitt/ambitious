@@ -75,6 +75,7 @@ The `year` shortcode just includes the current year. It is included primarily to
   - Image rendering and options for floating and full-bleed width
   - Proper documentation
   - Mark draft articles if we're rendering drafts
+  - Asides, ~~Sidenotes~~, Margin Notes, Footnotes, ~~Endnotes~~
 
 ### FIXME:
   - breakpoints for scaling content

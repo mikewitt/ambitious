@@ -1,0 +1,41 @@
+{{/* 1. Get the key from the shortcode call and lowercase it for consistency */ -}}
+{{- $key := .Get 0 | lower -}}
+
+{{- /* 2. Access the definitions from the page's front matter */}}
+{{- $acro := index .Page.Params.acronyms $key }}
+
+{{- /* 3. Fail gracefully if the key isn't found */}}
+{{- if not $acro }}
+  {{- warnf "Acronym shortcode: Key '%s' not found in params.acronyms for this page." $key }}
+  {{- $key | upper }}
+{{- else }}
+
+  {{- /* 4. Get the page's scratchpad */}}
+  {{- $scratch := .Page.Store }}
+
+  {{- /* 5. Check if our tracking map exists. If not, create it. */}}
+  {{- if not ($scratch.Get "used_acronyms") }}
+    {{-  $scratch.Set "used_acronyms" (dict) }}
+  {{- end }}
+  {{- $used := $scratch.Get "used_acronyms" }}
+
+  {{- /* 6. Check if this specific key has been used */}}
+  {{- if not (index $used $key) }}
+    {{- /* Get the 'term' or default to the key (uppercased) */}}
+    {{-  $term := $acro.term | default ($key | upper) }}
+    
+    {{- /* Render the full definition */}}
+    {{- $acro.definition }} (<abbr title="{{ $acro.definition }}">{{ $term }}</abbr>)
+
+    {{- /* Mark it as used in the scratchpad */ -}}
+    {{- $scratch.SetInMap "used_acronyms" $key true -}}
+
+  {{- else -}}
+    {{- /* Get the 'term' or default to the key (uppercased) */}}
+    {{- $term := $acro.term | default ($key | upper) }}
+
+    {{- /* Render the <abbr> tag */ -}}
+    <abbr title="{{ $acro.definition }}">{{ $term }}</abbr>
+  {{- end }}
+
+{{- end }}

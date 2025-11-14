@@ -1,0 +1,7 @@
+<div class="flex items-center gap-x-2 mt-1.5 my-6">
+    {{ partial "time.html" .Date }}
+    <span class="px-2 text-primary-500">&middot;</span>
+    <span>{{ .WordCount }} words</span>
+    <span class="px-2 text-primary-500">&middot;</span>
+    <span>{{ printf "%d mins" .ReadingTime }}</span>
+</div>
